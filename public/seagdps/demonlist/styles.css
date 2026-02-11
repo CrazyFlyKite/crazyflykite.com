@@ -1,0 +1,81 @@
+/* Headings */
+h1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 20px;
+	font-size: 100px;
+	text-decoration: underline;
+	text-underline-offset: 10px;
+}
+
+/* Sections */
+h2 {
+	font-size: 45px;
+	font-weight: normal;
+	margin: 0;
+	padding: 20px;
+}
+
+p, li {
+	font-size: 20px;
+	margin: 0;
+}
+
+.non-victor {
+	list-style: circle;
+}
+
+ul {
+	margin-top: 0;
+}
+
+abbr {
+	text-decoration: none;
+}
+
+.victors {
+	margin-top: 20px;
+}
+
+.difficulty {
+	margin: 20px;
+}
+
+.level-card {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	background: linear-gradient(135deg, rgb(145, 0, 0), rgb(229, 31, 46));
+	border-radius: 20px;
+	max-width: 1350px;
+	margin: 20px auto;
+	padding-left: 20px;
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+	transition: all 0.2s ease-in-out;
+}
+
+.level-card:hover {
+	transform: scale(1.01);
+}
+
+.info {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+}
+
+.main {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+}
+
+.title {
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: break-word;
+}

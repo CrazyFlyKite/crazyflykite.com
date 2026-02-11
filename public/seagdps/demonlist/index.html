@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>SeaGDPS Demonlist</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+		<link rel="stylesheet" href="/global.css">
+		<link rel="stylesheet" href="styles.css">
+		<link rel="icon" type="image/x-icon" href="/images/favicons/favicon2.png">
+		<script defer src="index.js"></script>
+	</head>
+	<body>
+		<!-- Body -->
+		<header class="header-top">
+			<div>
+				<a href="/seagdps" class="back-button" aria-hidden="true"><i class="fa-solid fa-arrow-left"></i></a>
+			</div>
+			<h1>The Demonlist</h1>
+		</header>
+		<main>
+			<div class="list"></div>
+		</main>
+		<footer>
+			<p>© CrazyFlyKite 2026</p>
+		</footer>
+
+		<!-- Templates -->
+		<template id="level-template">
+			<section class="level-card">
+				<div class="info">
+					<h2 class="title"></h2>
+					<img class="difficulty" height="75" alt="Difficulty face">
+				</div>
+				<div class="main">
+					<p class="id"></p>
+					<p class="creators"></p>
+					<p class="verifier"></p>
+					<p class="list-percentage"></p>
+					<p class="victors-text">Victors:</p>
+					<ul class="victors-list"></ul>
+				</div>
+			</section>
+		</template>
+	</body>
+</html>
