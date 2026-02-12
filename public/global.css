@@ -53,3 +53,12 @@ footer p {
 		margin-left: 40px;
 	}
 }
+
+@media (max-width: 768px) {
+	.back-button {
+		width: 35px;
+		height: 35px;
+		top: 2px;
+		left: 2px;
+	}
+}

@@ -3,8 +3,11 @@ h1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 	margin: 0;
 	font-size: 100px;
+	text-decoration: underline;
+	text-underline-offset: 10px;
 }
 
 .title {
@@ -17,6 +20,8 @@ h1 {
 }
 
 .title img {
+	width: 120px;
+	height: 120px;
 	border-radius: 50%;
 	box-shadow: 1px 1px 20px rgb(39, 92, 176);
 	transition: all 0.2s ease;
@@ -39,11 +44,19 @@ abbr {
 }
 
 /* Links */
+.horizontal-line {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	width: 90vw;
+}
+
 main a {
 	text-decoration: none;
 	color: white;
 	font-weight: bold;
-	width: 450px;
+	width: 400px;
 	text-align: center;
 	font-size: 50px;
 	border-radius: 20px;
@@ -65,4 +78,33 @@ main a {
 
 .discord {
 	background: linear-gradient(135deg, rgb(17, 66, 157), rgb(0, 101, 255))
+}
+
+.youtube {
+	background: linear-gradient(135deg, rgb(206, 0, 0), rgb(255, 55, 71))
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+	h1 {
+		font-size: 70px;
+	}
+
+	.title {
+		flex-direction: column;
+	}
+
+	.title img {
+		width: 100px;
+		height: 100px;
+	}
+
+	.horizontal-line {
+		flex-direction: column;
+	}
+
+	main a {
+		width: 250px;
+		font-size: 35px;
+	}
 }

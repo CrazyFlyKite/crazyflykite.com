@@ -3,6 +3,7 @@ h1 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	text-align: center;
 	margin: 0;
 	font-size: 100px;
 	text-decoration: underline;
@@ -27,9 +28,9 @@ abbr {
 	background: linear-gradient(135deg, rgb(91, 22, 152), rgb(116, 0, 255));
 	border: 2px dashed white;
 	border-radius: 20px;
-	max-width: 1250px;
-	margin: 50px auto;
-	padding-left: 20px;
+	width: 85vw;
+	margin: 50px 10px;
+	padding: 0 20px;
 }
 
 .requirements-container h3 {
@@ -40,4 +41,15 @@ abbr {
 .requirements-container h4 {
 	font-size: 25px;
 	margin: 10px;
+}
+
+/* Mobile  */
+@media (max-width: 768px) {
+	h1 {
+		font-size: 50px;
+	}
+
+	.requirements-container h3 {
+		font-size: 40px;
+	}
 }
