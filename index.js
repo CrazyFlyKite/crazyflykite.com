@@ -1,17 +1,17 @@
 require('dotenv').config();
 
 const express = require('express');
-const mysql = require('mysql2');
-const path = require('path');
-
 const app = express();
-const PORT = 3000;
+const path = require('path');
+const PORT = process.env.PORT || 3000;
 
-const connection = mysql.createConnection({
+const connection = require('mysql2').createConnection({
 	host: process.env.HOST_IP || '127.0.0.1',
 	user: process.env.MYSQL_USER,
 	password: process.env.MYSQL_PASSWORD,
 	database: 'seagdps',
+	waitForConnections: true,
+	enableKeepAlive: true
 });
 
 connection.connect(err => {
@@ -32,5 +32,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, '0.0.0.0', () => {
-	console.log(`Server running at http://0.0.0.0:${PORT}`);
+	console.log(`Server running at http://localhost:${PORT}`);
 });
