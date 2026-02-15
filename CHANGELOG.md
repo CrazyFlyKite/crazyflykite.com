@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0 | 14.02.2026
+
+- Added level thumbnails
+- Added copyable IDs
+
 ## 1.0.2 | 14.02.2026
 
 - Fixed the "Database error"

@@ -3,5 +3,7 @@
 node_modules/
 package.json
 package-lock.json
+public/images/thumbnails/*
+!public/images/thumbnails/default.png
 .env
 .DS_Store

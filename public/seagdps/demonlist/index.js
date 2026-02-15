@@ -17,9 +17,10 @@ const ratings = {
 };
 
 // Functions
-function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, victors) {
+function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, victors, hasThumbnail) {
 	const clone = document.querySelector('#level-template').content.cloneNode(true);
 
+	// Main
 	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong>${publisher}</strong>`;
 	clone.querySelector('.id').innerHTML = `ID: <strong>${id}</strong>`;
 	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by <strong>${creators.join(', ')}</strong>`;
@@ -27,6 +28,27 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	clone.querySelector('.list-percentage').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
 	clone.querySelector('.difficulty').src = `/images/difficulties/${difficulties[difficulty]}/${ratings[rating]}.png`;
 
+	// Copyable ID
+	const idElement = clone.querySelector('.id');
+	idElement.innerHTML = `ID: <strong>${id}</strong>`;
+	idElement.style.cursor = 'pointer';
+
+	idElement.onclick = () => {
+		navigator.clipboard.writeText(id).then(() => {
+			const originalText = idElement.innerHTML;
+			idElement.innerHTML = 'Copied!';
+			idElement.style.color = '#00ff00';
+
+			setTimeout(() => {
+				idElement.innerHTML = originalText;
+				idElement.style.color = '';
+			}, 500);
+		}).catch(error => {
+			console.error('Failed to copy: ', error);
+		});
+	};
+
+	// Victors
 	const victorsList = clone.querySelector('.victors-list');
 	if (victors.length > 0) {
 		const sortedVictors = [...victors].sort((a, b) => b['%'] - a['%']);
@@ -42,6 +64,16 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 		});
 	} else clone.querySelector('.victors-text').innerHTML = 'Victors: <em>None</em>';
 
+	// Thumbnail
+	const thumbImg = clone.querySelector('.level-thumbnail');
+
+	if (hasThumbnail) {
+		thumbImg.src = `/images/thumbnails/${id}.jpg`
+		thumbImg.style.cursor = 'pointer';
+		thumbImg.onclick = () => window.open(thumbImg.src, '_blank');
+	} else thumbImg.src = '/images/thumbnails/default.png';
+
+
 	list.appendChild(clone);
 }
 
@@ -51,7 +83,10 @@ fetch('/data/demonlist')
 	.then(data => {
 		for (let index = 0; index < data.length; index++) {
 			let level = data[index];
-			createLevel(index, level['id'], level['name'], level['publisher'], level['creators'], level['verifier'], level['difficulty'], level['rating'], level['list_percentage'], level['victors']);
+			createLevel(
+				index, level['id'], level['name'], level['publisher'], level['creators'], level['verifier'],
+				level['difficulty'], level['rating'], level['list_percentage'], level['victors'], level['has_thumbnail']
+			);
 		}
 	})
 	.catch(error => {
