@@ -15,7 +15,7 @@ h2 {
 	font-size: 40px;
 	font-weight: normal;
 	margin: 0;
-	padding: 20px;
+	padding: 0;
 }
 
 p, li {
@@ -37,19 +37,65 @@ abbr {
 
 .id {
 	position: absolute;
-	top: 10px;
+	bottom: 10px;
 	right: 10px;
 	font-size: 15px;
 	margin: 0;
 	z-index: 3;
+	opacity: 75%;
 }
 
 .victors {
 	margin-top: 20px;
 }
 
+/* Difficulty */
 .difficulty {
-	margin: 20px;
+	z-index: 2;
+	transition: transform 0.5s ease;
+}
+
+.difficulty[rating="2"] {
+	filter: drop-shadow(0 0 3px rgba(255, 255, 0, 0.5));
+}
+
+.difficulty[rating="3"] {
+	animation: epicPulse 3s infinite ease-in-out;
+}
+
+.difficulty[rating="4"] {
+	animation: legendaryPulse 3s infinite ease-in-out;
+}
+
+.difficulty[rating="5"] {
+	animation: mythicPulse 3s infinite ease-in-out;
+}
+
+@keyframes epicPulse {
+	0%, 100% {
+		filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.75));
+	}
+	50% {
+		filter: drop-shadow(0 0 10px rgb(255, 255, 0));
+	}
+}
+
+@keyframes legendaryPulse {
+	0%, 100% {
+		filter: drop-shadow(0 0 10px rgba(191, 64, 255, 0.75));
+	}
+	50% {
+		filter: drop-shadow(0 0 25px rgb(191, 64, 255));
+	}
+}
+
+@keyframes mythicPulse {
+	0%, 100% {
+		filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.75));
+	}
+	50% {
+		filter: drop-shadow(0 0 30px rgb(0, 255, 255));
+	}
 }
 
 .level-card {
@@ -64,8 +110,12 @@ abbr {
 	backdrop-filter: blur(12px);
 	-webkit-backdrop-filter: blur(12px);
 	border: 1px solid rgba(255, 255, 255, 0.1);
-	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+	box-shadow: 0 5px 20px 0 rgba(229, 31, 46, 0.5);
 	transition: transform 0.2s ease-in-out;
+}
+
+.level-card:hover {
+	transform: translateY(-2px);
 }
 
 .level-thumbnail {
@@ -76,24 +126,27 @@ abbr {
 	border-radius: 12px;
 	flex-shrink: 0;
 	border: 1px solid white;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+	transition: transform 0.5s ease;
+}
+
+.level-thumbnail:hover {
+	transform: scale(1.01);
 }
 
 .level-info {
 	flex: 1;
-	padding-left: 20px;
+	padding-left: 30px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-}
-
-.level-card:hover {
-	transform: translateY(-5px);
 }
 
 .level-title {
 	display: flex;
 	align-items: center;
 	flex-direction: row;
+	gap: 25px;
 }
 
 .main {
@@ -115,7 +168,24 @@ abbr {
 	}
 
 	h2 {
-		font-size: 25px;
+		font-size: 30px;
+	}
+
+	.level-card {
+		flex-direction: column;
+		width: 85vw;
+	}
+
+	.level-thumbnail {
+		order: 2;
+		width: 50%;
+		margin-top: 10px;
+	}
+
+	.level-info {
+		order: 1;
+		padding-left: 0;
+		width: 100%;
 	}
 
 	.level-card p, .level-card li {
@@ -123,6 +193,7 @@ abbr {
 	}
 
 	.difficulty {
-		width: 60px;
+		width: 100px;
+		height: 100px;
 	}
 }

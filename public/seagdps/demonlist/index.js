@@ -37,7 +37,7 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 		navigator.clipboard.writeText(id).then(() => {
 			const originalText = idElement.innerHTML;
 			idElement.innerHTML = 'Copied!';
-			idElement.style.color = '#00ff00';
+			idElement.style.color = '#00FF00';
 
 			setTimeout(() => {
 				idElement.innerHTML = originalText;
@@ -47,6 +47,9 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 			console.error('Failed to copy: ', error);
 		});
 	};
+
+	// Difficulty
+	clone.querySelector('.difficulty').setAttribute('rating', rating);
 
 	// Victors
 	const victorsList = clone.querySelector('.victors-list');

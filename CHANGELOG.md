@@ -1,6 +1,13 @@
 # Changelog
 
-## 1.1.0 | 14.02.2026
+## 1.1.1 | 16.02.2026
+
+- Fixed the Demonlist for mobile
+- Improved difficulty faces
+- Added more glow
+- Edited the requirements
+
+## 1.1.0 | 15.02.2026
 
 - Added level thumbnails
 - Added copyable IDs

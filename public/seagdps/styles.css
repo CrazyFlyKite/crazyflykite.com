@@ -65,23 +65,23 @@ main a {
 }
 
 .demonlist {
-	background: linear-gradient(135deg, rgb(145, 0, 0), rgb(229, 31, 46))
+	background: linear-gradient(135deg, rgb(145, 0, 0), rgb(229, 31, 46));
+	filter: drop-shadow(0 0 10px rgba(229, 31, 46, 0.5));
 }
 
 .rules {
-	background: linear-gradient(135deg, rgb(47, 47, 47), rgb(117, 117, 117))
+	background: linear-gradient(135deg, rgb(47, 47, 47), rgb(117, 117, 117));
+	filter: drop-shadow(0 0 10px rgba(117, 117, 117, 0.5));
 }
 
 .requirements {
-	background: linear-gradient(135deg, rgb(91, 22, 152), rgb(116, 0, 255))
-}
-
-.discord {
-	background: linear-gradient(135deg, rgb(17, 66, 157), rgb(0, 101, 255))
+	background: linear-gradient(135deg, rgb(91, 22, 152), rgb(116, 0, 255));
+	filter: drop-shadow(0 0 10px rgba(116, 0, 255, 0.5));
 }
 
 .youtube {
-	background: linear-gradient(135deg, rgb(206, 0, 0), rgb(255, 55, 71))
+	background: linear-gradient(135deg, rgb(206, 0, 0), rgb(255, 55, 71));
+	filter: drop-shadow(0 0 10px rgba(255, 55, 71, 0.5));
 }
 
 /* Mobile */

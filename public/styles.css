@@ -24,7 +24,7 @@ header img {
 }
 
 header img:hover {
-	transform: rotate(3deg) scale(1.03);
+	transform: rotate(1deg) scale(1.02);
 	box-shadow: 0 0 60px rgb(39, 92, 176);
 }
 
@@ -144,7 +144,7 @@ section {
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	border-radius: 16px;
 	padding: 20px;
-	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+	box-shadow: 0 0 10px rgba(45, 158, 2040, 0.5);
 	transition: transform 0.3s ease;
 }
 
