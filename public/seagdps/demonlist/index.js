@@ -1,6 +1,4 @@
 // Constants
-const list = document.querySelector('.list');
-
 const difficulties = {
 	1: 'easydemon',
 	2: 'mediumdemon',
@@ -17,7 +15,7 @@ const ratings = {
 };
 
 // Functions
-function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, victors, hasThumbnail) {
+function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, hasThumbnail, showcase, victors) {
 	const clone = document.querySelector('#level-template').content.cloneNode(true);
 
 	// Main
@@ -42,7 +40,7 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 			setTimeout(() => {
 				idElement.innerHTML = originalText;
 				idElement.style.color = '';
-			}, 500);
+			}, 800);
 		}).catch(error => {
 			console.error('Failed to copy: ', error);
 		});
@@ -68,29 +66,39 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	} else clone.querySelector('.victors-text').innerHTML = 'Victors: <em>None</em>';
 
 	// Thumbnail
-	const thumbImg = clone.querySelector('.level-thumbnail');
+	clone.querySelector('.level-thumbnail').src = hasThumbnail ? `/images/thumbnails/${id}.jpg` : '/images/thumbnails/default.png';
 
-	if (hasThumbnail) {
-		thumbImg.src = `/images/thumbnails/${id}.jpg`
-		thumbImg.style.cursor = 'pointer';
-		thumbImg.onclick = () => window.open(thumbImg.src, '_blank');
-	} else thumbImg.src = '/images/thumbnails/default.png';
+	// Showcase
+	const wrapper = clone.querySelector('.thumbnail-wrapper');
+	const playBtn = clone.querySelector('.play-button');
 
+	if (showcase) {
+		playBtn.style.display = 'flex';
+		wrapper.style.cursor = 'pointer';
+		wrapper.onclick = () => window.open(showcase, '_blank');
+	} else playBtn.style.display = 'none';
 
-	list.appendChild(clone);
+	// Add
+	return clone;
 }
 
 // Add levels
 fetch('/data/demonlist')
 	.then(response => response.json())
 	.then(data => {
+		const fragment = document.createDocumentFragment();
+
 		for (let index = 0; index < data.length; index++) {
 			let level = data[index];
-			createLevel(
+			const levelElement = createLevel(
 				index, level['id'], level['name'], level['publisher'], level['creators'], level['verifier'],
-				level['difficulty'], level['rating'], level['list_percentage'], level['victors'], level['has_thumbnail']
+				level['difficulty'], level['rating'], level['list_percentage'], level['has_thumbnail'],
+				level['showcase'], level['victors']
 			);
+			fragment.appendChild(levelElement);
 		}
+
+		document.querySelector('.list').appendChild(fragment);
 	})
 	.catch(error => {
 		console.error(error);

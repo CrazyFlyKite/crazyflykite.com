@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 | 17.02.2026
+
+- Added level showcases
+- Optimised level loading
+- Switched from pulsing glow to static
+- Added an important rate requirement
+
 ## 1.1.2 | 17.02.2026
 
 - Fixed the database error (I hope :sob:)
