@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2 | 17.02.2026
+
+- Fixed the database error (I hope :sob:)
+
 ## 1.1.1 | 16.02.2026
 
 - Fixed the Demonlist for mobile
