@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1 | 18.02.2026
+
+- Fixed the database error (I can't take this anymore :sob: :pray:)
+
 ## 1.2.0 | 17.02.2026
 
 - Added level showcases

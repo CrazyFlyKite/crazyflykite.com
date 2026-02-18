@@ -40,3 +40,11 @@ app.get('/', (req, res) => {
 app.listen(PORT, '0.0.0.0', () => {
 	console.log(`Server running at http://localhost:${PORT}`);
 });
+
+// Keep the database alive
+setInterval(() => {
+	pool.query('SELECT 1', (err) => {
+		if (err) console.error('Keep-alive query failed:', err.message);
+		else console.log('Database heartbeat sent.');
+	});
+}, 1800000);
