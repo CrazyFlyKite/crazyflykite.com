@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0
+
+- Completely rebuilt the database from scratch
+
 ## 1.2.1 | 18.02.2026
 
 - Fixed the database error (I can't take this anymore :sob: :pray:)

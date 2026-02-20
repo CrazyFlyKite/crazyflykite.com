@@ -15,7 +15,7 @@ const ratings = {
 };
 
 // Functions
-function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, hasThumbnail, showcase, victors) {
+function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, hasThumbnail, showcase, points, list_percentage_points, victors) {
 	const clone = document.querySelector('#level-template').content.cloneNode(true);
 
 	// Main
@@ -24,6 +24,7 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by <strong>${creators.join(', ')}</strong>`;
 	clone.querySelector('.verifier').innerHTML = `Verified by <strong>${verifier}</strong>`;
 	clone.querySelector('.list-percentage').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
+	clone.querySelector('.points').innerHTML = listPercentage === 100 ? `Points: <strong>${points}</strong>` : `Points: <strong>${points}</strong> / <strong>${list_percentage_points}</strong>`;
 	clone.querySelector('.difficulty').src = `/images/difficulties/${difficulties[difficulty]}/${ratings[rating]}.png`;
 
 	// Copyable ID
@@ -83,7 +84,7 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 }
 
 // Add levels
-fetch('/data/demonlist')
+fetch('/api/demonlist')
 	.then(response => response.json())
 	.then(data => {
 		const fragment = document.createDocumentFragment();
@@ -91,9 +92,9 @@ fetch('/data/demonlist')
 		for (let index = 0; index < data.length; index++) {
 			let level = data[index];
 			const levelElement = createLevel(
-				index, level['id'], level['name'], level['publisher'], level['creators'], level['verifier'],
+				index, level['level_id'], level['level_name'], level['publisher_name'], level['creators'], level['verifier'],
 				level['difficulty'], level['rating'], level['list_percentage'], level['has_thumbnail'],
-				level['showcase'], level['victors']
+				level['showcase'], level['points'], level['list_percentage_points'], level['victors']
 			);
 			fragment.appendChild(levelElement);
 		}

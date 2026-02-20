@@ -30,7 +30,7 @@ pool.getConnection((err, connection) => {
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const listRoutes = require('./routes/lists');
+const listRoutes = require('./routes/api');
 app.use(listRoutes(pool));
 
 app.get('/', (req, res) => {
