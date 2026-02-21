@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.1
+
+- Restructured list % and points
+
 ## 2.0.0
 
 - Completely rebuilt the database from scratch

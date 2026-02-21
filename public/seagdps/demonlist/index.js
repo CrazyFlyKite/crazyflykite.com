@@ -15,7 +15,7 @@ const ratings = {
 };
 
 // Functions
-function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, hasThumbnail, showcase, points, list_percentage_points, victors) {
+function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, hasThumbnail, showcase, points, listPercentagePoints, victors) {
 	const clone = document.querySelector('#level-template').content.cloneNode(true);
 
 	// Main
@@ -23,8 +23,8 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	clone.querySelector('.id').innerHTML = `ID: <strong>${id}</strong>`;
 	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by <strong>${creators.join(', ')}</strong>`;
 	clone.querySelector('.verifier').innerHTML = `Verified by <strong>${verifier}</strong>`;
-	clone.querySelector('.list-percentage').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
-	clone.querySelector('.points').innerHTML = listPercentage === 100 ? `Points: <strong>${points}</strong>` : `Points: <strong>${points}</strong> / <strong>${list_percentage_points}</strong>`;
+	if (points === 0) clone.querySelector('.points').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
+	else clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong> (<strong>100%</strong>) / <strong>${listPercentagePoints} p.</strong> (<strong>${listPercentage}%</strong>)`;
 	clone.querySelector('.difficulty').src = `/images/difficulties/${difficulties[difficulty]}/${ratings[rating]}.png`;
 
 	// Copyable ID
