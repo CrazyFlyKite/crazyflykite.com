@@ -92,7 +92,7 @@ fetch('/api/demonlist')
 		for (let index = 0; index < data.length; index++) {
 			let level = data[index];
 			const levelElement = createLevel(
-				index, level['level_id'], level['level_name'], level['publisher_name'], level['creators'], level['verifier'],
+				index, level['level_id'], level['level_name'], level['publisher'], level['creators'], level['verifier'],
 				level['difficulty'], level['rating'], level['list_percentage'], level['has_thumbnail'],
 				level['showcase'], level['points'], level['list_percentage_points'], level['victors']
 			);

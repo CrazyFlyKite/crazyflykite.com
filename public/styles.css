@@ -37,7 +37,7 @@ header img:hover {
 nav {
 	width: 100%;
 	padding: 10px 0;
-	margin-bottom: 40px;
+	margin-bottom: 25px;
 	margin-right: 30px;
 }
 
@@ -141,10 +141,9 @@ section {
 	margin-bottom: 20px;
 	backdrop-filter: blur(12px);
 	-webkit-backdrop-filter: blur(12px);
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	border-radius: 16px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 20px;
 	padding: 20px;
-	box-shadow: 0 0 10px rgba(45, 158, 2040, 0.5);
 	transition: transform 0.3s ease;
 }
 

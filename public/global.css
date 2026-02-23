@@ -10,9 +10,16 @@ body {
 
 /* Footer */
 footer p {
+	display: inline-block;
 	margin: 5px;
-	opacity: 75%;
+	padding: 10px;
 	font-size: 20px;
+	background: linear-gradient(135deg, rgba(47, 47, 47, 0.75), rgba(117, 117, 117, 0.75));
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 20px;
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 /* Title */
@@ -22,8 +29,6 @@ footer p {
 	justify-content: center;
 	align-items: center;
 	padding: 10px 20px;
-	background: rgba(0, 0, 0, 0.3);
-	backdrop-filter: blur(10px);
 }
 
 .back-button {
@@ -35,8 +40,11 @@ footer p {
 	justify-content: center;
 	width: 45px;
 	height: 45px;
-	background: rgba(255, 255, 255, 0.25);
-	border: 1px solid rgba(255, 255, 255, 0.5);
+	background: rgba(107, 107, 107, 0.75);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 	border-radius: 12px;
 	color: white;
 	text-decoration: none;
@@ -46,6 +54,23 @@ footer p {
 .back-button:hover {
 	transform: scale(1.05);
 }
+
+.formatted-title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin: 20px;
+	font-size: 100px;
+	text-decoration: underline;
+	text-underline-offset: 10px;
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	padding: 20px;
+	border-radius: 20px;
+}
+
 
 @media (max-width: 400px) {
 	.list-header h1 {

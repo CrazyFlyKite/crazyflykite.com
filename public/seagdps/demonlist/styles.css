@@ -1,16 +1,17 @@
-/* Headings */
-h1 {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	margin: 20px;
-	font-size: 100px;
-	text-decoration: underline;
-	text-underline-offset: 10px;
+body {
+	background-image: url('/images/backgrounds/SeaGDPS1.png');
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.formatted-title {
+	background: linear-gradient(135deg, rgba(190, 0, 13, 0.75), rgba(229, 31, 46, 0.75));
 }
 
 /* Sections */
+
 h2 {
 	font-size: 40px;
 	font-weight: normal;
@@ -80,13 +81,16 @@ abbr {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	background: linear-gradient(135deg, rgb(145, 0, 0), rgb(229, 31, 46));
+	background: linear-gradient(135deg, rgba(190, 0, 13, 0.75), rgba(229, 31, 46, 0.75));
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
 	border-radius: 20px;
 	width: 90vw;
 	margin: 20px auto;
 	padding: 15px;
-	box-shadow: 0 5px 20px 0 rgba(229, 31, 46, 0.5);
-	transition: transform 0.2s ease-in-out;
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+	transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .level-card:hover {
@@ -157,6 +161,7 @@ abbr {
 	overflow-wrap: break-word;
 	word-wrap: break-word;
 	word-break: break-word;
+	white-space: pre-wrap;
 }
 
 /* Mobile */

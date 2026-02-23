@@ -43,11 +43,64 @@ module.exports = (pool) => {
 				const { creator_names, victor_data, ...rest } = row;
 
 				return {
-					...rest,
-					publisher: row.publisher_name || 'Unknown',
-					verifier: row.verifier_name || 'Unknown',
-					creators: creators,
-					victors: victors
+					'level_id': row.level_id,
+					'placement': row.placement,
+					'level_name': row.level_name,
+					'creators': creators,
+					'publisher': row.publisher_name,
+					'verifier': row.verifier_name,
+					'difficulty': row.difficulty,
+					'rating': row.rating,
+					'has_thumbnail': row.has_thumbnail === 1,
+					'showcase': row.showcase,
+					'list_percentage': row.list_percentage,
+					'points': row.points,
+					'list_percentage_points': row.list_percentage_points,
+					'victors': victors
+				};
+			});
+
+			res.json(formattedResults);
+		});
+	});
+
+	router.get('/api/stats_viewer', (req, res) => {
+		const query = `
+			SELECT
+				s.*,
+				(SELECT GROUP_CONCAT(CONCAT(d2.level_name, ':', r2.progress, ':', r2.is_verifier) ORDER BY d2.placement ASC SEPARATOR '|')
+				FROM records r2
+				JOIN demonlist d2 ON r2.level_id = d2.level_id
+				WHERE r2.player_id = s.player_id AND r2.progress > 0) AS all_records,
+				(SELECT GROUP_CONCAT(d3.level_name SEPARATOR '|')
+				FROM creators c
+				JOIN demonlist d3 ON c.level_id = d3.level_id
+				WHERE c.player_id = s.player_id) AS levels_created
+			FROM stats_viewer s
+			ORDER BY s.points DESC, player_name DESC
+		`;
+
+		pool.query(query, (err, results) => {
+			if (err) {
+				console.error('SQL Error:', err.message);
+				return res.status(500).json({ error: 'Database error' });
+			}
+
+			const formattedResults = results.map(row => {
+				return {
+					player_id: row.player_id,
+					player_name: row.player_name,
+					points: Number(row.points) || 0,
+					records: row.all_records ? row.all_records.split('|').map(item => {
+						const [name, progress, verifierBit] = item.split(':');
+						return {
+							'name': name,
+							'%': parseInt(progress),
+							'is_verifier': verifierBit === '1'
+						};
+					}) : [],
+
+					created: row.levels_created ? row.levels_created.split('|') : []
 				};
 			});
 

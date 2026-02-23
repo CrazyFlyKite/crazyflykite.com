@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.2
+
+- Started making Stats Viewer
+- Enhanced SeaGDPS UI (added SeaGDPS1 background)
+- Made Legendary and Mythic faces GodLike
+
 ## 2.0.1
 
 - Restructured list % and points

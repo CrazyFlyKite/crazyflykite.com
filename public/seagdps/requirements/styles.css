@@ -1,13 +1,14 @@
+body {
+	background-image: url('/images/backgrounds/SeaGDPS1.png');
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
 /* Headings */
-h1 {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	margin: 0;
-	font-size: 100px;
-	text-decoration: underline;
-	text-underline-offset: 10px;
+.formatted-title {
+	background: linear-gradient(135deg, rgba(91, 22, 152, 0.75), rgba(116, 0, 255, 0.75));
 }
 
 main {
@@ -25,11 +26,14 @@ abbr {
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
-	background: linear-gradient(135deg, rgb(91, 22, 152), rgb(116, 0, 255));
-	border: 2px dashed white;
+	background: linear-gradient(135deg, rgba(91, 22, 152, 0.75), rgba(116, 0, 255, 0.75));
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
 	border-radius: 20px;
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 	width: 85vw;
-	margin: 50px 10px;
+	margin: 10px;
 	padding: 0 20px;
 }
 

@@ -1,3 +1,15 @@
+body {
+	background-image: url('/images/backgrounds/SeaGDPS1.png');
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.formatted-title {
+	background: linear-gradient(135deg, rgba(47, 47, 47, 0.75), rgba(117, 117, 117, 0.75));
+}
+
 /* Headings */
 h1 {
 	display: flex;
@@ -20,8 +32,8 @@ h1 {
 }
 
 .title img {
-	width: 120px;
-	height: 120px;
+	width: 150px;
+	height: 150px;
 	border-radius: 50%;
 	box-shadow: 1px 1px 20px rgb(39, 92, 176);
 	transition: all 0.2s ease;
@@ -64,24 +76,27 @@ main a {
 	margin: 10px;
 }
 
+.demonlist, .rules, .requirements, .youtube {
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
 .demonlist {
-	background: linear-gradient(135deg, rgb(145, 0, 0), rgb(229, 31, 46));
-	filter: drop-shadow(0 0 10px rgba(229, 31, 46, 0.5));
+	background: linear-gradient(135deg, rgba(145, 0, 0, 0.75), rgba(229, 31, 46, 0.75));
 }
 
 .rules {
-	background: linear-gradient(135deg, rgb(47, 47, 47), rgb(117, 117, 117));
-	filter: drop-shadow(0 0 10px rgba(117, 117, 117, 0.5));
+	background: linear-gradient(135deg, rgba(47, 47, 47, 0.75), rgba(117, 117, 117, 0.75));
 }
 
 .requirements {
-	background: linear-gradient(135deg, rgb(91, 22, 152), rgb(116, 0, 255));
-	filter: drop-shadow(0 0 10px rgba(116, 0, 255, 0.5));
+	background: linear-gradient(135deg, rgba(91, 22, 152, 0.75), rgba(116, 0, 255, 0.75));
 }
 
 .youtube {
-	background: linear-gradient(135deg, rgb(206, 0, 0), rgb(255, 55, 71));
-	filter: drop-shadow(0 0 10px rgba(255, 55, 71, 0.5));
+	background: linear-gradient(135deg, rgba(206, 0, 0, 0.75), rgba(255, 55, 71, 0.75));
 }
 
 /* Mobile */
