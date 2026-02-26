@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0
+
+- Added a new Stats Viewer page
+- Fixed and updated UI
+- Added (not working :3) Discord button
+
 ## 2.0.2
 
 - Started making Stats Viewer

@@ -59,7 +59,7 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 			const li = document.createElement('li');
 			if (v['%'] === 100) li.innerHTML = `<strong>${v['name']}</strong>`;
 			else {
-				li.innerHTML = `${v['name']} (${v['%']}%)`;
+				li.innerHTML = `${v['name']} (${v['progress']}%)`;
 				li.classList.add('non-victor');
 			}
 			victorsList.appendChild(li);
@@ -93,8 +93,8 @@ fetch('/api/demonlist')
 			let level = data[index];
 			const levelElement = createLevel(
 				index, level['level_id'], level['level_name'], level['publisher'], level['creators'], level['verifier'],
-				level['difficulty'], level['rating'], level['list_percentage'], level['has_thumbnail'],
-				level['showcase'], level['points'], level['list_percentage_points'], level['victors']
+				level['difficulty'], level['rating'], level['listPercentage'], level['hasThumbnail'],
+				level['showcase'], level['points'], level['listPercentagePoints'], level['victors']
 			);
 			fragment.appendChild(levelElement);
 		}

@@ -1,12 +1,4 @@
-body {
-	background-image: url('/images/backgrounds/SeaGDPS1.png');
-	background-attachment: fixed;
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-}
-
-.formatted-title {
+h1 {
 	background: linear-gradient(135deg, rgba(47, 47, 47, 0.75), rgba(117, 117, 117, 0.75));
 }
 

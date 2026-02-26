@@ -1,47 +1,25 @@
-body {
-	background-image: url('/images/backgrounds/SeaGDPS1.png');
-	background-attachment: fixed;
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
-}
-
-.formatted-title {
+/* Headings */
+h1 {
+	display: inline-flex;
+	gap: 25px;
 	background: linear-gradient(135deg, rgba(47, 47, 47, 0.75), rgba(117, 117, 117, 0.75));
 }
 
-/* Headings */
-h1 {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	margin: 0;
-	font-size: 100px;
-	text-decoration: underline;
-	text-underline-offset: 10px;
-}
-
-.title {
+.header-top {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
-	gap: 20px;
+	width: 100%;
 	margin: 20px;
 }
 
-.title img {
+.header-top img {
 	width: 150px;
 	height: 150px;
 	border-radius: 50%;
-	box-shadow: 1px 1px 20px rgb(39, 92, 176);
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.75);
 	transition: all 0.2s ease;
-}
-
-.title img:hover {
-	transform: rotate(3deg) scale(1.03);
-	box-shadow: 0 0 25px rgb(39, 92, 176);
 }
 
 main {
@@ -64,7 +42,7 @@ abbr {
 	width: 90vw;
 }
 
-main a {
+main a, main button {
 	text-decoration: none;
 	color: white;
 	font-weight: bold;
@@ -74,9 +52,10 @@ main a {
 	border-radius: 20px;
 	padding: 15px;
 	margin: 10px;
+	cursor: pointer;
 }
 
-.demonlist, .rules, .requirements, .youtube {
+.demonlist, .rules, .requirements, .stats_viewer, .youtube, .discord {
 	backdrop-filter: blur(12px);
 	-webkit-backdrop-filter: blur(12px);
 	border: 1px solid rgba(255, 255, 255, 0.2);
@@ -95,31 +74,35 @@ main a {
 	background: linear-gradient(135deg, rgba(91, 22, 152, 0.75), rgba(116, 0, 255, 0.75));
 }
 
+.stats_viewer {
+	background: linear-gradient(135deg, rgba(26, 37, 210, 0.75), rgba(66, 78, 194, 0.75));
+}
+
 .youtube {
 	background: linear-gradient(135deg, rgba(206, 0, 0, 0.75), rgba(255, 55, 71, 0.75));
+}
+
+.discord {
+	background: linear-gradient(135deg, rgba(88, 101, 242, 0.75), rgba(121, 132, 243, 0.75));
 }
 
 /* Mobile */
 @media (max-width: 768px) {
 	h1 {
-		font-size: 70px;
+		font-size: 60px;
 	}
 
-	.title {
-		flex-direction: column;
-	}
-
-	.title img {
-		width: 100px;
-		height: 100px;
+	.header-top img {
+		width: 75px;
+		height: 75px;
 	}
 
 	.horizontal-line {
 		flex-direction: column;
 	}
 
-	main a {
+	main a, main button {
 		width: 250px;
-		font-size: 35px;
+		font-size: 30px;
 	}
 }

@@ -15,6 +15,7 @@
 		<title>SeaGDPS</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 		<link rel="stylesheet" href="/global.css">
+		<link rel="stylesheet" href="/seagdps/seagdps.css">
 		<link rel="stylesheet" href="styles.css">
 		<link rel="icon" type="image/x-icon" href="/images/favicons/favicon2.png">
 	</head>
@@ -23,23 +24,23 @@
 			<div>
 				<a href="/" class="back-button" aria-hidden="true"><i class="fa-solid fa-arrow-left"></i></a>
 			</div>
-			<div class="title">
-				<h1 class="formatted-title"><abbr title="SeaCarrrot's Geometry Dash Private Server">SeaGDPS</abbr></h1>
-				<img src="/images/icons/seagdps.png" alt="SeaGDPS">
-			</div>
+			<h1><abbr title="SeaCarrrot's Geometry Dash Private Server">SeaGDPS</abbr><img src="/images/icons/seagdps.png" alt="SeaGDPS"></h1>
 		</header>
 		<main>
 			<div class="horizontal-line">
 				<a href="/seagdps/demonlist" class="demonlist" aria-label="Demonlist">Demonlist</a>
 				<a href="/seagdps/rules" class="rules" aria-label="Rules">Rules</a>
+				<a href="/seagdps/requirements" class="requirements" aria-label="Requirements">Requirements</a>
 			</div>
 			<div class="horizontal-line">
-				<a href="/seagdps/requirements" class="requirements" aria-label="Requirements">Requirements</a>
+				<a href="/seagdps/stats_viewer" class="stats_viewer" aria-label="Stats Viewer">Stats Viewer</a>
 				<a href="https://www.youtube.com/@SeaGDPS" class="youtube" target="_blank" rel="noopener" aria-label="YouTube">YouTube <i class="fa-brands fa-youtube"></i></a>
+				<button class="discord">Discord <i class="fa-brands fa-discord"></i></button>
 			</div>
 		</main>
 		<footer>
 			<p>© CrazyFlyKite 2026</p>
 		</footer>
+		<script>document.querySelector('.discord').onclick = function() { alert('Our Discord server is invite-only, sorry :3'); }</script>
 	</body>
 </html>

@@ -1,0 +1,24 @@
+body {
+	background-image: url('/images/backgrounds/SeaGDPS1.png');
+	background-attachment: fixed;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	overflow-x: hidden;
+}
+
+h1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin: 20px;
+	font-size: 100px;
+	text-decoration: underline;
+	text-underline-offset: 10px;
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	padding: 20px;
+	border-radius: 20px;
+}
