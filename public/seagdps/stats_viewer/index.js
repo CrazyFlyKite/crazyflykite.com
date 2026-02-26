@@ -21,7 +21,7 @@ function renderPlayerList(players) {
 	const listContainer = document.getElementById('player-list');
 	listContainer.innerHTML = players.map((player, index) => {
 		const flag = player.playerNationality
-			? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="little-flag" alt="Player nationality">`
+			? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="little-flag" title="${player.playerNationality.toUpperCase()}" alt="Player nationality">`
 			: '';
 
 		return `
@@ -43,8 +43,24 @@ function selectPlayer(id, element, rank) {
 
 function renderPlayerCard(player, rank) {
 	const card = document.getElementById('player-card');
+
+	const allFinishedLevels = [
+		...player.levelsCompleted.map(l => ({ ...l, isVerified: false })),
+		...player.levelsVerified.map(l => ({ ...l, isVerified: true }))
+	];
+
+	let hardestHTML = '<h3>Hardest: <em>None</em></h3>';
+
+	if (allFinishedLevels.length > 0) {
+		const hardest = allFinishedLevels.reduce((prev, curr) =>
+			(prev.placement < curr.placement) ? prev : curr
+		);
+
+		hardestHTML = `<h3>Hardest: #${hardest.placement} - <strong>${hardest.name}</strong> by <strong>${hardest.publisher}</strong>${hardest.isVerified ? ' (Verified)' : ''}</h3>`;
+	}
+
 	const flag = player.playerNationality
-		? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="big-flag" title=${player.playerNationality.toUpperCase()} alt="Player nationality">`
+		? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="big-flag" title="${player.playerNationality.toUpperCase()}" alt="Player nationality">`
 		: '';
 
 	const completedHTML = player.levelsCompleted.length > 0 ? `
@@ -81,6 +97,7 @@ function renderPlayerCard(player, rank) {
 
 	card.innerHTML = `
         <h2>${flag} #${rank} - <strong>${player.playerName}</strong> - <strong>${player.points}</strong> p.</h2>
+        ${hardestHTML}
         ${completedHTML}
         ${verifiedHTML}
         ${progressHTML}

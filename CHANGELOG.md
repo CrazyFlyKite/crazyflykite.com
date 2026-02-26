@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.1
+
+- Added "Hardest" text to Stats Viewer
+- Minor bugfixes
+
 ## 2.1.0
 
 - Added a new Stats Viewer page

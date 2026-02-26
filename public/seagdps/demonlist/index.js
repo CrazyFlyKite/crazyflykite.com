@@ -57,7 +57,7 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 
 		sortedVictors.forEach(v => {
 			const li = document.createElement('li');
-			if (v['%'] === 100) li.innerHTML = `<strong>${v['name']}</strong>`;
+			if (v['progress'] === 100) li.innerHTML = `<strong>${v['name']}</strong>`;
 			else {
 				li.innerHTML = `${v['name']} (${v['progress']}%)`;
 				li.classList.add('non-victor');
