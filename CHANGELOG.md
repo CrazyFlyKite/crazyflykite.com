@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.2
+
+- Added opacity for Legacy levels
+
 ## 2.1.1
 
 - Added "Hardest" text to Stats Viewer

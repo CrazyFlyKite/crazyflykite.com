@@ -68,21 +68,17 @@ module.exports = (pool) => {
 		const query = `
 			SELECT
 				s.*,
-				(SELECT GROUP_CONCAT(
-							CONCAT(d2.placement, '::', d2.level_name, '::', p_pub.player_name, '::', r2.progress, '::', r2.is_verifier)
-								ORDER BY d2.placement ASC SEPARATOR '|')
+				(SELECT GROUP_CONCAT(CONCAT(d2.placement, '::', d2.level_name, '::', p_pub.player_name, '::', r2.progress, '::', r2.is_verifier, '::', d2.points) ORDER BY d2.placement ASC SEPARATOR '|')
 				FROM records r2
-						  JOIN demonlist d2 ON r2.level_id = d2.level_id
-						  LEFT JOIN creators c_pub ON d2.level_id = c_pub.level_id AND c_pub.is_publisher = 1
-						  LEFT JOIN players p_pub ON c_pub.player_id = p_pub.player_id
+				JOIN demonlist d2 ON r2.level_id = d2.level_id
+				LEFT JOIN creators c_pub ON d2.level_id = c_pub.level_id AND c_pub.is_publisher = 1
+				LEFT JOIN players p_pub ON c_pub.player_id = p_pub.player_id
 				WHERE r2.player_id = s.player_id AND r2.progress > 0) AS all_records,
-				(SELECT GROUP_CONCAT(
-							CONCAT(d3.placement, '::', d3.level_name, '::', p_pub3.player_name)
-								ORDER BY d3.placement ASC SEPARATOR '|')
+				(SELECT GROUP_CONCAT(CONCAT(d3.placement, '::', d3.level_name, '::', p_pub3.player_name) ORDER BY d3.placement ASC SEPARATOR '|')
 				FROM creators c
-						  JOIN demonlist d3 ON c.level_id = d3.level_id
-						  LEFT JOIN creators c_pub3 ON d3.level_id = c_pub3.level_id AND c_pub3.is_publisher = 1
-						  LEFT JOIN players p_pub3 ON c_pub3.player_id = p_pub3.player_id
+				JOIN demonlist d3 ON c.level_id = d3.level_id
+				LEFT JOIN creators c_pub3 ON d3.level_id = c_pub3.level_id AND c_pub3.is_publisher = 1
+				LEFT JOIN players p_pub3 ON c_pub3.player_id = p_pub3.player_id
 				WHERE c.player_id = s.player_id) AS levels_created
 			FROM stats_viewer s
 			ORDER BY s.points DESC, s.player_name ASC
@@ -96,13 +92,14 @@ module.exports = (pool) => {
 
 			const formattedResults = results.map(row => {
 				const allRecords = row.all_records ? row.all_records.split('|').map(item => {
-					const [placement, name, publisher, progress, isVerifier] = item.split('::');
+					const [placement, name, publisher, progress, isVerifier, points] = item.split('::');
 					return {
 						placement: parseInt(placement),
 						name: name,
 						publisher: publisher,
 						progress: parseInt(progress),
-						isVerifier: isVerifier === '1'
+						isVerifier: isVerifier === '1',
+						points: parseInt(points)
 					};
 				}) : [];
 
@@ -115,16 +112,16 @@ module.exports = (pool) => {
 					playerId: row.player_id,
 					playerName: row.player_name,
 					playerNationality: row.player_nationality,
-					points: Number(row.points) || 0,
+					points: parseInt(row.points) || 0,
 					levelsVerified: allRecords
 						.filter(r => r.isVerifier)
-						.map(({ placement, name, publisher }) => ({ placement, name, publisher })),
+						.map(({ placement, name, publisher, points }) => ({ placement, name, publisher, points })),
 					levelsCompleted: allRecords
 						.filter(r => !r.isVerifier && r.progress === 100)
-						.map(({ placement, name, publisher }) => ({ placement, name, publisher })),
+						.map(({ placement, name, publisher, points }) => ({ placement, name, publisher, points })),
 					progressOn: allRecords
 						.filter(r => !r.isVerifier && r.progress < 100)
-						.map(({ placement, name, publisher, progress }) => ({ placement, name, publisher, progress })),
+						.map(({ placement, name, publisher, progress, points }) => ({ placement, name, publisher, progress, points })),
 					levelsCreated: created
 				};
 			});

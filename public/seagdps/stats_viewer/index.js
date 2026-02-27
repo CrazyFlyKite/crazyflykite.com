@@ -62,12 +62,13 @@ function renderPlayerCard(player, rank) {
 	const flag = player.playerNationality
 		? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="big-flag" title="${player.playerNationality.toUpperCase()}" alt="Player nationality">`
 		: '';
+	const tagClass = (pts) => (pts === 0 ? 'level-tag legacy' : 'level-tag');
 
 	const completedHTML = player.levelsCompleted.length > 0 ? `
         <div class="stat-section">
             <h3>Completed (${player.levelsCompleted.length})</h3>
             <div class="level-tag-list">
-                ${player.levelsCompleted.map(l => `<span class="level-tag" title="#${l.placement} - ${l.name} by ${l.publisher}">${l.name}</span>`).join('')}
+                ${player.levelsCompleted.map(l => `<span class="${tagClass(l.points)}" title="#${l.placement} - ${l.name} by ${l.publisher} (${l.points} p.)">${l.name}</span>`).join('')}
             </div>
         </div>` : '';
 
@@ -75,7 +76,7 @@ function renderPlayerCard(player, rank) {
         <div class="stat-section">
             <h3>Verified (${player.levelsVerified.length})</h3>
             <div class="level-tag-list">
-                ${player.levelsVerified.map(l => `<span class="level-tag" title="#${l.placement} - ${l.name} by ${l.publisher}">${l.name}</span>`).join('')}
+                ${player.levelsVerified.map(l => `<span class="${tagClass(l.points)}" title="#${l.placement} - ${l.name} by ${l.publisher} (${l.points} p.)">${l.name}</span>`).join('')}
             </div>
         </div>` : '';
 
@@ -83,7 +84,7 @@ function renderPlayerCard(player, rank) {
         <div class="stat-section">
             <h3>Progress On (${player.progressOn.length})</h3>
             <div class="level-tag-list">
-                ${player.progressOn.map(l => `<span class="level-tag" title="#${l.placement} - ${l.name} by ${l.publisher}">${l.name} (${l.progress}%)</span>`).join('')}
+                ${player.progressOn.map(l => `<span class="${tagClass(l.points)}" title="#${l.placement} - ${l.name} by ${l.publisher} (${l.points} p.)">${l.name} (${l.progress}%)</span>`).join('')}
             </div>
         </div>` : '';
 
@@ -91,7 +92,7 @@ function renderPlayerCard(player, rank) {
         <div class="stat-section">
             <h3>Created (${player.levelsCreated.length})</h3>
             <div class="level-tag-list">
-                ${player.levelsCreated.map(l => `<span class="level-tag" title="#${l.placement} - ${l.name} by ${l.publisher}">${l.name}</span>`).join('')}
+                ${player.levelsCreated.map(l => `<span class="${tagClass(l.points)}" title="#${l.placement} - ${l.name} by ${l.publisher}">${l.name}</span>`).join('')}
             </div>
         </div>` : '';
 
