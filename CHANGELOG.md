@@ -1,37 +1,42 @@
 # Changelog
 
-## 2.1.2
+## 2.1.3
+
+- Added URL parameters for the Stats Viewer
+- Added forgotten dates to the Changelog, because I forgot
+
+## 2.1.2 | 27.02.2026
 
 - Added opacity for Legacy levels
 
-## 2.1.1
+## 2.1.1 | 26.02.2026
 
 - Added "Hardest" text to Stats Viewer
 - Minor bugfixes
 
-## 2.1.0
+## 2.1.0 | 26.02.2026
 
 - Added a new Stats Viewer page
 - Fixed and updated UI
 - Added (not working :3) Discord button
 
-## 2.0.2
+## 2.0.2 | 23.02.2026
 
 - Started making Stats Viewer
 - Enhanced SeaGDPS UI (added SeaGDPS1 background)
 - Made Legendary and Mythic faces GodLike
 
-## 2.0.1
+## 2.0.1 | 21.02.2026
 
 - Restructured list % and points
 
-## 2.0.0
+## 2.0.0 | 20.02.2026
 
 - Completely rebuilt the database from scratch
 
 ## 1.2.1 | 18.02.2026
 
-- Fixed the database error (I can't take this anymore :sob: :pray:)
+- Fixed the database error (I can't take this anymore :sob::pray:)
 
 ## 1.2.0 | 17.02.2026
 

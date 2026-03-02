@@ -1,52 +1,67 @@
 let playersData = [];
 
 async function init() {
+	const urlParams = new URLSearchParams(window.location.search);
+	const playerID = urlParams.get('player');
+
 	try {
 		const response = await fetch('/api/stats_viewer');
 		playersData = await response.json();
-		const activePlayers = playersData.filter(p => p.points > 0);
+		renderPlayerList(playersData);
 
-		renderPlayerList(activePlayers);
-		if (activePlayers.length > 0) {
-			renderPlayerCard(activePlayers[0], 1);
-			const firstPlayerItem = document.querySelector('.player-item');
-			if (firstPlayerItem) firstPlayerItem.classList.add('active');
+		if (playerID) {
+			const targetPlayer = playersData.find(p => p.playerId == playerID);
+
+			if (targetPlayer) {
+				const rank = playersData.indexOf(targetPlayer) + 1;
+				selectPlayer(targetPlayer.playerId, null, rank);
+			} else console.error('Player ID from URL not found in database:', playerID);
 		}
-	} catch (err) {
-		console.error('Failed to load stats: ', err);
+	} catch (error) {
+		console.warn('Error loading players:', error);
 	}
 }
 
 function renderPlayerList(players) {
 	const listContainer = document.getElementById('player-list');
 	listContainer.innerHTML = players.map((player, index) => {
-		const flag = player.playerNationality
-			? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="little-flag" title="${player.playerNationality.toUpperCase()}" alt="Player nationality">`
-			: '';
+		if (player.points > 0) {
+			const flag = player.playerNationality
+				? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="little-flag" title="${player.playerNationality.toUpperCase()}" alt="Player nationality">`
+				: '';
 
-		return `
-            <div class="player-item" onclick="selectPlayer(${player.playerId}, this, ${index + 1})">
-                <span>${flag} #${index + 1} - <strong>${player.playerName}</strong></span>
-                <span><strong>${player.points}</strong> p.</span>
-            </div>
-        `;
+			return `
+				<div class="player-item" onclick="selectPlayer(${player.playerId}, this, ${index + 1})">
+					<span>${flag} #${index + 1} - <strong>${player.playerName}</strong></span>
+					<span><strong>${player.points}</strong> p.</span>
+				</div>
+			`;
+		}
 	}).join('');
 }
 
 function selectPlayer(id, element, rank) {
 	document.querySelectorAll('.player-item').forEach(el => el.classList.remove('active'));
-	element.classList.add('active');
+
+	const activeEl = element || document.getElementById(`player-item-${id}`);
+	if (activeEl) activeEl.classList.add('active');
 
 	const player = playersData.find(p => p.playerId === id);
-	renderPlayerCard(player, rank);
+	if (player) {
+		renderPlayerCard(player, rank);
+
+		const newUrl = new URL(window.location);
+		newUrl.searchParams.set('player', id);
+		window.history.pushState({path: newUrl.href}, '', newUrl.href);
+	}
 }
 
 function renderPlayerCard(player, rank) {
 	const card = document.getElementById('player-card');
 
 	const allFinishedLevels = [
-		...player.levelsCompleted.map(l => ({ ...l, isVerified: false })),
-		...player.levelsVerified.map(l => ({ ...l, isVerified: true }))
+		...player.levelsCompleted.map(l => ({...l, isVerified: false})),
+		...player.levelsVerified.map(l => ({...l, isVerified: true}))
 	];
 
 	let hardestHTML = '<h3>Hardest: <em>None</em></h3>';
