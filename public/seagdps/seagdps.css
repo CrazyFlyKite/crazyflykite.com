@@ -1,3 +1,12 @@
+:root {
+	--demonlist-color: linear-gradient(135deg, rgba(145, 0, 0, 0.75), rgba(229, 31, 46, 0.75));
+	--rules-color: linear-gradient(135deg, rgba(47, 47, 47, 0.75), rgba(117, 117, 117, 0.75));
+	--requirements-color: linear-gradient(135deg, rgba(91, 22, 152, 0.75), rgba(116, 0, 255, 0.75));
+	--stats-viewer-color: linear-gradient(135deg, rgba(26, 37, 210, 0.75), rgba(66, 78, 194, 0.75));
+	--youtube-color: linear-gradient(135deg, rgba(206, 0, 0, 0.75), rgba(255, 55, 71, 0.75));
+	--discord-color: linear-gradient(135deg, rgba(88, 101, 242, 0.75), rgba(121, 132, 243, 0.75));
+}
+
 body {
 	background-image: url('/images/backgrounds/SeaGDPS1.png');
 	background-attachment: fixed;

@@ -1,5 +1,5 @@
 h1 {
-	background: linear-gradient(135deg, rgba(26, 37, 210, 0.75), rgba(66, 78, 194, 0.75));
+	background: var(--stats-viewer-color);
 }
 
 h2 {
@@ -34,7 +34,7 @@ main {
 	overflow-y: auto;
 	-ms-overflow-style: none;
 	scrollbar-width: none;
-	background: linear-gradient(135deg, rgba(26, 37, 210, 0.75), rgba(66, 78, 194, 0.75));
+	background: var(--stats-viewer-color);
 	backdrop-filter: blur(10px);
 	border-radius: 20px;
 	border: 1px solid rgba(255, 255, 255, 0.1);
@@ -72,7 +72,7 @@ main {
 
 .player-card-content {
 	width: 100%;
-	background: linear-gradient(135deg, rgba(26, 37, 210, 0.75), rgba(66, 78, 194, 0.75));
+	background: var(--stats-viewer-color);
 	backdrop-filter: blur(20px);
 	-webkit-backdrop-filter: blur(20px);
 	border: 1px solid rgba(255, 255, 255, 0.2);
@@ -103,12 +103,13 @@ main {
 
 .level-tag {
 	background: rgba(255, 255, 255, 0.1);
+	color: white;
+	text-decoration: none;
 	padding: 5px 12px;
 	border-radius: 15px;
 	font-size: 14px;
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	white-space: pre-wrap;
-	cursor: help;
 }
 
 .level-tag.legacy {

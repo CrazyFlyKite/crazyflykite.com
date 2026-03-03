@@ -1,6 +1,12 @@
 # Changelog
 
-## 2.1.3
+## 2.1.4 | 03.03.2026
+
+- Added a search bar to the Demonlist (Added URL parameters)
+- Level tags in the Stats Viewer now reroute to the Demonlist with URL parameters
+- Fixed a ton of bugs
+
+## 2.1.3 | 02.03.2026
 
 - Added URL parameters for the Stats Viewer
 - Added forgotten dates to the Changelog, because I forgot

@@ -29,7 +29,19 @@
 			<h1>The Demonlist</h1>
 		</header>
 		<main>
-			<div class="list"></div>
+			<div class="search-box">
+				<div class="list-controls">
+					<div class="search-wrapper">
+						<input type="text" id="level-search" placeholder="Level Name / ID">
+						<select id="level-sort">
+							<option value="asc">Ascending</option>
+							<option value="desc">Descending</option>
+						</select>
+						<button id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+					</div>
+				</div>
+				<div class="list"></div>
+			</div>
 		</main>
 		<footer>
 			<p>© CrazyFlyKite 2026</p>
@@ -48,7 +60,7 @@
 						<h2 class="title"></h2>
 						<img class="difficulty" width="125" height="125" alt="Difficulty face">
 					</div>
-					<div class="main">
+					<div class="main-info">
 						<p class="creators"></p>
 						<p class="verifier"></p>
 						<p class="points"></p>

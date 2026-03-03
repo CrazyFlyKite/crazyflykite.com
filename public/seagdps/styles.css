@@ -2,7 +2,7 @@
 h1 {
 	display: inline-flex;
 	gap: 25px;
-	background: linear-gradient(135deg, rgba(47, 47, 47, 0.75), rgba(117, 117, 117, 0.75));
+	background: var(--rules-color);
 }
 
 .header-top {
@@ -39,7 +39,6 @@ abbr {
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
-	width: 90vw;
 }
 
 main a, main button {
@@ -55,7 +54,7 @@ main a, main button {
 	cursor: pointer;
 }
 
-.demonlist, .rules, .requirements, .stats_viewer, .youtube, .discord {
+.demonlist, .rules, .requirements, .stats-viewer, .youtube, .discord {
 	backdrop-filter: blur(12px);
 	-webkit-backdrop-filter: blur(12px);
 	border: 1px solid rgba(255, 255, 255, 0.2);
@@ -63,27 +62,27 @@ main a, main button {
 }
 
 .demonlist {
-	background: linear-gradient(135deg, rgba(145, 0, 0, 0.75), rgba(229, 31, 46, 0.75));
+	background: var(--demonlist-color);
 }
 
 .rules {
-	background: linear-gradient(135deg, rgba(47, 47, 47, 0.75), rgba(117, 117, 117, 0.75));
+	background: var(--rules-color);
 }
 
 .requirements {
-	background: linear-gradient(135deg, rgba(91, 22, 152, 0.75), rgba(116, 0, 255, 0.75));
+	background: var(--requirements-color);
 }
 
-.stats_viewer {
-	background: linear-gradient(135deg, rgba(26, 37, 210, 0.75), rgba(66, 78, 194, 0.75));
+.stats-viewer {
+	background: var(--stats-viewer-color);
 }
 
 .youtube {
-	background: linear-gradient(135deg, rgba(206, 0, 0, 0.75), rgba(255, 55, 71, 0.75));
+	background: var(--youtube-color);
 }
 
 .discord {
-	background: linear-gradient(135deg, rgba(88, 101, 242, 0.75), rgba(121, 132, 243, 0.75));
+	background: var(--discord-color);
 }
 
 /* Mobile */
