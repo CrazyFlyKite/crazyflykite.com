@@ -182,6 +182,7 @@ abbr {
 #level-search, #level-sort, #search-button {
 	border: 2px solid transparent;
 	height: 35px;
+	margin: 5px;
 	padding-left: 10px;
 	outline: none;
 	overflow: hidden;
@@ -221,7 +222,7 @@ abbr {
 
 	.level-card {
 		flex-direction: column;
-		width: 450px;
+		max-width: 350px;
 	}
 
 	.thumbnail-wrapper {

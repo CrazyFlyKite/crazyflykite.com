@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.5 | 17.03.2026
+
+- Finally fixed mobile UI
+
 ## 2.1.4 | 03.03.2026
 
 - Added a search bar to the Demonlist (Added URL parameters)

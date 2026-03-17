@@ -54,46 +54,49 @@ main a, main button {
 	cursor: pointer;
 }
 
-.demonlist, .rules, .requirements, .stats-viewer, .youtube, .discord {
+.link {
 	backdrop-filter: blur(12px);
 	-webkit-backdrop-filter: blur(12px);
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-.demonlist {
+#demonlist {
 	background: var(--demonlist-color);
 }
 
-.rules {
+#rules {
 	background: var(--rules-color);
 }
 
-.requirements {
+#requirements {
 	background: var(--requirements-color);
 }
 
-.stats-viewer {
+#stats-viewer {
 	background: var(--stats-viewer-color);
 }
 
-.youtube {
+#youtube {
 	background: var(--youtube-color);
 }
 
-.discord {
+#discord {
 	background: var(--discord-color);
 }
 
 /* Mobile */
 @media (max-width: 768px) {
 	h1 {
-		font-size: 60px;
+		font-size: 50px;
+	}
+
+	.header-top {
+		margin: 20px 0;
 	}
 
 	.header-top img {
-		width: 75px;
-		height: 75px;
+		display: none;
 	}
 
 	.horizontal-line {
