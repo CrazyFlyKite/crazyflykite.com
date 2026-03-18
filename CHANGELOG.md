@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.6
+
+- Added Google Search support
+
 ## 2.1.5 | 17.03.2026
 
 - Finally fixed mobile UI
