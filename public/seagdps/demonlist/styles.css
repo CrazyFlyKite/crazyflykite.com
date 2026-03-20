@@ -45,6 +45,11 @@ abbr {
 	margin: 0;
 	z-index: 3;
 	opacity: 75%;
+	transition: transform 0.2s ease;
+}
+
+.id:active {
+	transform: scale(0.9);
 }
 
 .victors {
@@ -161,6 +166,11 @@ abbr {
 	white-space: pre-wrap;
 }
 
+.player-link {
+	color: inherit;
+	text-decoration: none;
+}
+
 /* Search */
 .search-box {
 	display: flex;
@@ -179,7 +189,7 @@ abbr {
 	padding: 15px;
 }
 
-#level-search, #level-sort, #search-button {
+#level-search, #level-sort, #search-button, #clear-button {
 	border: 2px solid transparent;
 	height: 35px;
 	margin: 5px;
@@ -197,7 +207,7 @@ abbr {
 	cursor: pointer;
 }
 
-#search-button {
+#search-button, #clear-button {
 	width: 35px;
 	background: white;
 	transition: all 0.5s;
@@ -208,6 +218,18 @@ abbr {
 
 #search-button:hover {
 	background: rgb(245, 245, 245);
+}
+
+.no-results {
+	display: flex;
+	font-size: 40px;
+	font-weight: bold;
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 20px;
+	margin: 30px;
+	padding: 15px;
 }
 
 /* Mobile */

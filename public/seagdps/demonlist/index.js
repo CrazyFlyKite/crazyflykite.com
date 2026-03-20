@@ -14,6 +14,7 @@ const ratings = {
 	4: 'legendary',
 	5: 'mythic'
 };
+const statsViewerLink = '/seagdps/stats_viewer/?player='
 
 // Functions
 async function init() {
@@ -28,9 +29,19 @@ async function init() {
 		if (searchParam) document.querySelector('#level-search').value = searchParam;
 		if (sortParam) document.querySelector('#level-sort').value = sortParam;
 
-		document.querySelector('#search-button').addEventListener('click', updateList);
-		document.querySelector('#level-search').addEventListener('keypress', (e) => {
+		const searchInput = document.querySelector('#level-search');
+		const sortSelect = document.querySelector('#level-sort');
+		const searchButton = document.querySelector('#search-button');
+		const clearButton = document.querySelector('#clear-button');
+
+		searchInput.addEventListener('keypress', (e) => {
 			if (e.key === 'Enter') updateList();
+		});
+		searchButton.addEventListener('click', updateList);
+		clearButton.addEventListener('click', () => {
+			searchInput.value = '';
+			sortSelect.value = 'asc';
+			updateList();
 		});
 
 		updateList();
@@ -43,10 +54,10 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	const clone = document.querySelector('#level-template').content.cloneNode(true);
 
 	// Main
-	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong>${publisher}</strong>`;
+	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong><a href="${statsViewerLink}${publisher.playerID}" class="player-link">${publisher.name}</a></strong>`;
 	clone.querySelector('.id').innerHTML = `ID: <strong>${id}</strong>`;
-	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by <strong>${creators.join(', ')}</strong>`;
-	clone.querySelector('.verifier').innerHTML = `Verified by <strong>${verifier}</strong>`;
+	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by ${creators.map(c => `<a href="${statsViewerLink}${c.playerID}" class="player-link"><strong>${c.name}</strong></a>`).join(', ')}`;
+	clone.querySelector('.verifier').innerHTML = `Verified by <strong><a href="${statsViewerLink}${verifier.playerID}" class="player-link">${verifier.name}</a></strong>`;
 	if (points === 0) clone.querySelector('.points').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
 	else clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong> (<strong>100%</strong>) / <strong>${listPercentagePoints} p.</strong> (<strong>${listPercentage}%</strong>)`;
 	clone.querySelector('.difficulty').src = `/images/difficulties/${difficulties[difficulty]}/${ratings[rating]}.png`;
@@ -77,13 +88,11 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	// Victors
 	const victorsList = clone.querySelector('.victors-list');
 	if (victors.length > 0) {
-		const sortedVictors = [...victors].sort((a, b) => b['%'] - a['%']);
-
-		sortedVictors.forEach(v => {
+		victors.forEach(v => {
 			const li = document.createElement('li');
-			if (v['progress'] === 100) li.innerHTML = `<strong>${v['name']}</strong>`;
+			if (v.progress === 100) li.innerHTML = `<strong><a href="${statsViewerLink}${v.playerID}" class="player-link">${v.name}</a></strong>`;
 			else {
-				li.innerHTML = `${v['name']} (${v['progress']}%)`;
+				li.innerHTML = `<a href="${statsViewerLink}${v.playerID}" class="player-link">${v.name}</a> (${v.progress}%)`;
 				li.classList.add('non-victor');
 			}
 			victorsList.appendChild(li);
@@ -113,7 +122,7 @@ function updateList() {
 
 	let filtered = levelsData.filter(level => {
 		const nameMatch = level.levelName.toLowerCase().includes(searchTerm);
-		const isIDSearch = !isNaN(searchTerm) && searchTerm !== "";
+		const isIDSearch = !isNaN(searchTerm) && searchTerm !== '';
 		const idMatch = isIDSearch ? level.levelID.toString() === searchTerm : level.levelID.toString().includes(searchTerm);
 
 		return nameMatch || idMatch;
@@ -127,7 +136,8 @@ function updateList() {
 
 	const url = new URL(window.location);
 	searchTerm ? url.searchParams.set('search', searchTerm) : url.searchParams.delete('search');
-	url.searchParams.set('sort', sortOrder);
+	if (sortOrder === 'desc') url.searchParams.set('sort', 'desc');
+	else url.searchParams.delete('sort');
 	window.history.replaceState({}, '', url);
 
 	renderLevels(filtered);
@@ -138,13 +148,17 @@ function renderLevels(levelsToDisplay) {
 	listContainer.innerHTML = '';
 	const fragment = document.createDocumentFragment();
 
+	if (levelsToDisplay.length === 0) {
+		listContainer.innerHTML = `<div class="no-results">No Levels Found :(</div>`;
+		return;
+	}
+
 	levelsToDisplay.forEach((level) => {
 		const originalPlacement = levelsData.indexOf(level);
 		const levelElement = createLevel(
-			originalPlacement, level['levelID'], level['levelName'], level['publisher'],
-			level['creators'], level['verifier'], level['difficulty'], level['rating'],
-			level['listPercentage'], level['hasThumbnail'], level['showcase'],
-			level['points'], level['listPercentagePoints'], level['victors']
+			originalPlacement, level.levelID, level.levelName, level.publisher, level.creators, level.verifier,
+			level.difficulty, level.rating, level.listPercentage, level.hasThumbnail, level.showcase,
+			level.points, level.listPercentagePoints, level.victors
 		);
 		fragment.appendChild(levelElement);
 	});

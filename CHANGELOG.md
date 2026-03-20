@@ -1,6 +1,12 @@
 # Changelog
 
-## 2.1.6
+## 2.1.7 | 20.03.2026
+
+- Made every player in the Demonlist clickable
+- Removed the annoying parameter "?sort=asc" every time you enter the Demonlist
+- Added a Clear button and "No Levels found" label
+
+## 2.1.6 | 18.03.2026
 
 - Added Google Search support
 

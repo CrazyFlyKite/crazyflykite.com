@@ -5,10 +5,12 @@ module.exports = (pool) => {
 		const query = `
 			SELECT
 				d.*,
+				p_pub.player_id AS publisher_id,
 				p_pub.player_name AS publisher_name,
+				p_ver.player_id AS verifier_id,
 				p_ver.player_name AS verifier_name,
-				GROUP_CONCAT(DISTINCT p_all.player_name ORDER BY p_all.player_name SEPARATOR ', ') AS creator_names,
-				GROUP_CONCAT(DISTINCT CONCAT(p_vic.player_name, ':', r.progress) ORDER BY r.progress DESC, p_vic.player_name ASC SEPARATOR '|') AS victor_data
+				GROUP_CONCAT(DISTINCT CONCAT(p_all.player_id, ':', p_all.player_name) ORDER BY p_all.player_name SEPARATOR '|') AS creator_data,
+				GROUP_CONCAT(DISTINCT CONCAT(p_vic.player_id, ':', p_vic.player_name, ':', r.progress) ORDER BY r.progress DESC, p_vic.player_name ASC SEPARATOR '|') AS victor_data
 			FROM demonlist d
 			LEFT JOIN creators c ON d.level_id = c.level_id
 			LEFT JOIN players p_all ON c.player_id = p_all.player_id
@@ -29,11 +31,14 @@ module.exports = (pool) => {
 			}
 
 			const formattedResults = results.map(row => {
-				const creators = row.creator_names ? row.creator_names.split(', ') : [];
+				const creators = row.creator_data ? row.creator_data.split('|').map(c => {
+					const [id, name] = c.split(':');
+					return { playerID: parseInt(id), name: name };
+				}) : [];
 
 				const victors = row.victor_data ? row.victor_data.split('|').map(v => {
-					const [name, progress] = v.split(':');
-					return { name: name, progress: parseInt(progress) };
+					const [playerID, name, progress] = v.split(':');
+					return { playerID: parseInt(playerID), name: name, progress: parseInt(progress) };
 				}) : [];
 
 				const { creator_names, victor_data, ...rest } = row;
@@ -43,8 +48,8 @@ module.exports = (pool) => {
 					placement: row.placement,
 					levelName: row.level_name,
 					creators: creators,
-					publisher: row.publisher_name,
-					verifier: row.verifier_name,
+					publisher: { playerID: row.publisher_id, name: row.publisher_name },
+					verifier: { playerID: row.verifier_id, name: row.verifier_name },
 					difficulty: row.difficulty,
 					rating: row.rating,
 					hasThumbnail: row.has_thumbnail === 1,
