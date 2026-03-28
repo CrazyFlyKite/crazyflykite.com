@@ -57,6 +57,7 @@ module.exports = (pool) => {
 					listPercentage: row.list_percentage,
 					points: row.points,
 					listPercentagePoints: row.list_percentage_points,
+					listType: row.list_type,
 					victors: victors
 				};
 			});
@@ -112,10 +113,13 @@ module.exports = (pool) => {
 				}) : [];
 
 				return {
-					playerId: row.player_id,
+					playerID: row.player_id,
 					playerName: row.player_name,
 					playerNationality: row.player_nationality,
 					points: parseInt(row.points) || 0,
+					mainList: parseInt(row.main_list) || 0,
+					extendedList: parseInt(row.extended_list) || 0,
+					legacyList: parseInt(row.legacy_list) || 0,
 					levelsVerified: allRecords
 						.filter(r => r.isVerifier)
 						.map(({ levelID, placement, name, publisher, points }) => ({ levelID, placement, name, publisher, points })),
@@ -128,6 +132,28 @@ module.exports = (pool) => {
 					levelsCreated: created
 				};
 			});
+
+			res.json(formattedResults);
+		});
+	});
+
+	router.get('/api/totals', (req, res) => {
+		const query = `
+        SELECT 
+            SUM(CASE WHEN list_type = 1 THEN 1 ELSE 0 END) AS total_main,
+            SUM(CASE WHEN list_type = 2 THEN 1 ELSE 0 END) AS total_extended,
+            SUM(CASE WHEN list_type = 3 THEN 1 ELSE 0 END) AS total_legacy
+        FROM demonlist
+    `;
+		pool.query(query, (err, results) => {
+			if (err) return res.status(500).json({ error: err.sqlMessage });
+			const row = results[0];
+
+			const formattedResults = {
+				main: parseInt(row.total_main) || 0,
+				extended: parseInt(row.total_extended) || 0,
+				legacy: parseInt(row.total_legacy) || 0
+			};
 
 			res.json(formattedResults);
 		});

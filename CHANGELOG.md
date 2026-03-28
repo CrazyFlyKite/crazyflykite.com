@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2 | 28.03.2026
+
+- Added 3 list types: Main, Extended & Legacy to the Demonlist & Stats Viewer
+
 ## 2.1.7 | 20.03.2026
 
 - Made every player in the Demonlist clickable

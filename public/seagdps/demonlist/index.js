@@ -14,7 +14,17 @@ const ratings = {
 	4: 'legendary',
 	5: 'mythic'
 };
+const listTypes = {
+	1: 'Main List',
+	2: 'Extended List',
+	3: 'Legacy List'
+}
 const statsViewerLink = '/seagdps/stats_viewer/?player='
+
+// Variables
+let createdMainListTitle = false;
+let createdExtendedListTitle = false;
+let createdLegacyListTitle = false;
 
 // Functions
 async function init() {
@@ -50,8 +60,11 @@ async function init() {
 	}
 }
 
-function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, hasThumbnail, showcase, points, listPercentagePoints, victors) {
+function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, hasThumbnail, showcase, points, listPercentagePoints, listType, victors) {
 	const clone = document.querySelector('#level-template').content.cloneNode(true);
+
+	// List Type
+
 
 	// Main
 	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong><a href="${statsViewerLink}${publisher.playerID}" class="player-link">${publisher.name}</a></strong>`;
@@ -153,12 +166,23 @@ function renderLevels(levelsToDisplay) {
 		return;
 	}
 
+	let lastType = null;
+
 	levelsToDisplay.forEach((level) => {
+		if (level.listType !== lastType) {
+			const header = document.createElement('h3');
+			header.className = 'list-section-title';
+			header.innerText = listTypes[level.listType];
+			fragment.appendChild(header);
+			lastType = level.listType;
+		}
+
 		const originalPlacement = levelsData.indexOf(level);
 		const levelElement = createLevel(
-			originalPlacement, level.levelID, level.levelName, level.publisher, level.creators, level.verifier,
-			level.difficulty, level.rating, level.listPercentage, level.hasThumbnail, level.showcase,
-			level.points, level.listPercentagePoints, level.victors
+			originalPlacement, level.levelID, level.levelName, level.publisher,
+			level.creators, level.verifier, level.difficulty, level.rating,
+			level.listPercentage, level.hasThumbnail, level.showcase,
+			level.points, level.listPercentagePoints, level.listType, level.victors
 		);
 		fragment.appendChild(levelElement);
 	});

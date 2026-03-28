@@ -16,6 +16,19 @@ h2 {
 	padding: 0;
 }
 
+.list-section-title {
+	width: 400px;
+	background: var(--demonlist-color);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	margin: 60px 30px 30px 30px;
+	font-size: 50px;
+	text-align: center;
+	padding: 10px;
+	border-radius: 20px;
+}
+
 p, li {
 	font-size: 18px;
 	margin: 0;
@@ -271,5 +284,10 @@ abbr {
 	.difficulty {
 		width: 100px;
 		height: 100px;
+	}
+
+	.list-section-title {
+		width: 300px;
+		font-size: 35px;
 	}
 }
