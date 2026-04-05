@@ -19,13 +19,13 @@ header img {
 	width: 35vw;
 	height: 35vw;
 	border-radius: 50%;
-	box-shadow: 1px 1px 50px rgb(39, 92, 176);
+	box-shadow: 0 0 30px rgb(39, 92, 176);
 	transition: all 0.2s ease;
 }
 
 header img:hover {
-	transform: rotate(1deg) scale(1.02);
-	box-shadow: 0 0 60px rgb(39, 92, 176);
+	transform: rotate(1deg) scale(1.01);
+	box-shadow: 0 0 40px rgb(39, 92, 176);
 }
 
 .header-text h2 {
@@ -54,7 +54,6 @@ nav a {
 	color: white;
 	font-size: 18px;
 	font-weight: 600;
-	transition: color 0.3s;
 }
 
 /* Headings */
@@ -71,7 +70,6 @@ h1 {
 	text-align: center;
 	transition: color 0.2s ease-in-out;
 	font-weight: 750;
-	cursor: default;
 }
 
 @keyframes rainbow {
@@ -99,6 +97,7 @@ ul ul {
 /* Links */
 a {
 	color: white;
+	transition: color 0.3s;
 }
 
 a:hover {

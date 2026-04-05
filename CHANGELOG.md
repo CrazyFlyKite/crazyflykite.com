@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.1 | 05.04.2026
+
+- Improved main page
+
 ## 2.2 | 28.03.2026
 
 - Added 3 list types: Main, Extended & Legacy to the Demonlist & Stats Viewer
