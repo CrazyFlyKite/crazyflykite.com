@@ -2,7 +2,7 @@
 
 ## Introduction
 
-**[crazyflykite.com](https://crazyflykite.com)** is my personal website
+**[crazyflykite.com](https://crazyflykite.com)** is my personal website.
 
 Version changelog can be found in [`CHANGELOG.md`](CHANGELOG.md)
 
@@ -10,7 +10,7 @@ Version changelog can be found in [`CHANGELOG.md`](CHANGELOG.md)
 
 - [`index.js`](index.js) - Main entry point where the connection with the database is happening
 
-- [`routes/lists.js`](routes/lists.js) - API router that handles database queries
+- [`routes/api.js`](routes/api.js) - API router which handles database queries
 
 - [`public/`](public) - Frontend assets
 

@@ -63,9 +63,6 @@ async function init() {
 function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, hasThumbnail, showcase, points, listPercentagePoints, listType, victors) {
 	const clone = document.querySelector('#level-template').content.cloneNode(true);
 
-	// List Type
-
-
 	// Main
 	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong><a href="${statsViewerLink}${publisher.playerID}" class="player-link">${publisher.name}</a></strong>`;
 	clone.querySelector('.id').innerHTML = `ID: <strong>${id}</strong>`;

@@ -4,9 +4,9 @@ h1 {
 
 main {
 	display: flex;
+	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	flex-direction: row;
 }
 
 abbr {
@@ -15,27 +15,27 @@ abbr {
 
 .rules-container {
 	display: flex;
-	justify-content: center;
 	flex-direction: column;
-	background: var(--rules-color);
-	backdrop-filter: blur(12px);
-	-webkit-backdrop-filter: blur(12px);
-	border: 1px solid rgba(255, 255, 255, 0.2);
-	border-radius: 20px;
-	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+	justify-content: center;
 	width: 1250px;
 	margin: 10px;
 	padding: 0 20px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	background: var(--rules-color);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	border-radius: 20px;
+	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
 .rules-container h3 {
-	font-size: 50px;
 	margin: 20px;
+	font-size: 50px;
 }
 
 .rules-container h4 {
-	font-size: 25px;
 	margin: 0;
+	font-size: 25px;
 }
 
 /* Mobile */

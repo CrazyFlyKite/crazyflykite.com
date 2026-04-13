@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.2 | 13.04.2026
+
+- Rearranged CSS using a pattern
+
 ## 2.2.1 | 05.04.2026
 
 - Improved main page
