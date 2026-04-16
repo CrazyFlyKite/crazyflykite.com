@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.3 | 16.04.2026
+
+- Added API buttons to the Demonlist and Stats Viewer
+- Minor UI bugfixes
+- Updated sitemap.xml
+
 ## 2.2.2 | 13.04.2026
 
 - Rearranged CSS using a pattern

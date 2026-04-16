@@ -46,10 +46,6 @@ hr {
 	font-size: 5px;
 }
 
-abbr {
-	text-decoration: none;
-}
-
 .id {
 	position: absolute;
 	z-index: 3;

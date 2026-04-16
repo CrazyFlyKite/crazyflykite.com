@@ -128,10 +128,6 @@ section a {
 	font-size: 30px;
 }
 
-abbr {
-	text-decoration: none;
-}
-
 /* Main */
 main {
 	display: flex;

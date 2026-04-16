@@ -9,10 +9,6 @@ main {
 	align-items: center;
 }
 
-abbr {
-	text-decoration: none;
-}
-
 .rules-container {
 	display: flex;
 	flex-direction: column;

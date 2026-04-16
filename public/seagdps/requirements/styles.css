@@ -9,10 +9,6 @@ main {
 	align-items: center;
 }
 
-abbr {
-	text-decoration: none;
-}
-
 .requirements-container {
 	display: flex;
 	flex-direction: column;

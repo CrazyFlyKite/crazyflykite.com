@@ -38,12 +38,18 @@ footer p {
 	justify-content: center;
 	align-items: center;
 	padding: 10px 20px;
+	min-height: 80px;
 }
 
-.back-button {
+.header-controls {
 	position: absolute;
 	top: 10px;
 	left: 10px;
+	display: flex;
+	gap: 10px;
+}
+
+.header-control-button {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -60,10 +66,16 @@ footer p {
 	transition: all 0.3s ease;
 }
 
-.back-button:hover {
+.header-control-button:hover {
 	transform: scale(1.05);
 }
 
+/* Other */
+abbr {
+	text-decoration: none;
+}
+
+/* Mobile */
 @media (max-width: 400px) {
 	.list-header h1 {
 		font-size: 1.5rem;
@@ -72,7 +84,7 @@ footer p {
 }
 
 @media (max-width: 768px) {
-	.back-button {
+	.header-control-button {
 		top: 2px;
 		left: 2px;
 		width: 35px;

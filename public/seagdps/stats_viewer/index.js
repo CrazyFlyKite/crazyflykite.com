@@ -35,7 +35,7 @@ async function init() {
 function renderPlayerList(players) {
 	const listContainer = document.getElementById('player-list');
 	listContainer.innerHTML = players.map((player, index) => {
-		if (player.points > 0) {
+		if (player.levelsVerified.length > 0 || player.levelsCompleted.length > 0 || player.levelsCompleted.progressOn > 0) {
 			const flag = player.playerNationality
 				? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="little-flag" title="${player.playerNationality.toUpperCase()}" alt="Player nationality">`
 				: '';
@@ -82,7 +82,7 @@ function renderPlayerCard(player, rank) {
 			(prev.placement < curr.placement) ? prev : curr
 		);
 
-		hardestHTML = `<h3>Hardest: #${hardest.placement} - <strong>${hardest.name}</strong> by <strong>${hardest.publisher}</strong>${hardest.isVerified ? ' (Verified)' : ''}</h3>`;
+		hardestHTML = `<h3>Hardest: #${hardest.placement} - <strong><a href="/seagdps/demonlist/?search=${hardest.levelID}">${hardest.name}</a></strong> by <strong>${hardest.publisher}</strong>${hardest.isVerified ? ' (Verified)' : ''}</h3>`;
 	}
 
 	console.log(globalTotals.main);

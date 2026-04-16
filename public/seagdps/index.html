@@ -21,8 +21,8 @@
 	</head>
 	<body>
 		<header class="header-top">
-			<div>
-				<a href="/" class="back-button" aria-hidden="true"><i class="fa-solid fa-arrow-left"></i></a>
+			<div class="header-controls">
+				<a href="/" class="header-control-button" aria-hidden="true"><i class="fa-solid fa-arrow-left"></i></a>
 			</div>
 			<h1><abbr title="SeaCarrrot's Geometry Dash Private Server">SeaGDPS</abbr><img src="/images/icons/seagdps.png" alt="SeaGDPS"></h1>
 		</header>
@@ -35,12 +35,11 @@
 			<div class="horizontal-line">
 				<a href="/seagdps/stats_viewer" class="link" id="stats-viewer" aria-label="Stats Viewer">Stats Viewer</a>
 				<a href="https://www.youtube.com/@SeaGDPS" class="link" id="youtube" target="_blank" rel="noopener" aria-label="YouTube">YouTube <i class="fa-brands fa-youtube"></i></a>
-				<button class="link" id="discord">Discord <i class="fa-brands fa-discord"></i></button>
+				<button class="link" id="discord" onclick="alert('Our Discord server is invite-only, sorry :3')">Discord <i class="fa-brands fa-discord"></i></button>
 			</div>
 		</main>
 		<footer>
 			<p>© CrazyFlyKite 2026</p>
 		</footer>
-		<script>document.querySelector('#discord').onclick = function() { alert('Our Discord server is invite-only, sorry :3'); }</script>
 	</body>
 </html>
