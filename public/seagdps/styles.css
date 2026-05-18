@@ -79,6 +79,11 @@ main a, main button {
 	background: var(--discord-color);
 }
 
+#mitker-says-things {
+	width: 500px;
+	background: var(--mitker-says-things-color);
+}
+
 /* Mobile */
 @media (max-width: 768px) {
 	h1 {
@@ -98,7 +103,7 @@ main a, main button {
 	}
 
 	main a, main button {
-		width: 250px;
+		width: 250px !important;
 		font-size: 30px;
 	}
 }

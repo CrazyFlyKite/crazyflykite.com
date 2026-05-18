@@ -8,5 +8,5 @@ function calculateAge(birthDate) {
 	return age;
 }
 
-const birthDate = new Date(2010, 5, 9);
+const birthDate = new Date(2010, 4, 9);
 document.querySelector('#age').textContent = String(calculateAge(birthDate));

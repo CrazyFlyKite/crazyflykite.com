@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.4 | 18.05.2026
+
+- Added optimization for Chrome on macOS (Blur and shadow effects on a lot of elements caused lags. Yes, this only happens on macOS and only in Chrome.)
+- Added "Mitker Says Thing" button
+
 ## 2.2.3 | 16.04.2026
 
 - Added API buttons to the Demonlist and Stats Viewer
