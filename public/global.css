@@ -91,11 +91,3 @@ abbr {
 		height: 35px;
 	}
 }
-
-/* Google Chrome on macOS optimisation */
-@media screen and (-webkit-min-device-pixel-ratio: 0) and (min-resolution: .001dpcm) {
-	* {
-		-webkit-backdrop-filter: none !important;
-		backdrop-filter: none !important;
-	}
-}

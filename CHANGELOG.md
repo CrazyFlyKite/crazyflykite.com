@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.5 | 15.06.2026
+
+- Added banned players to the Stats Viewer
+- Removed the macOS Chrome optimization since it started working properly again
+
 ## 2.2.4 | 18.05.2026
 
 - Added optimization for Chrome on macOS (Blur and shadow effects on a lot of elements caused lags. Yes, this only happens on macOS and only in Chrome.)

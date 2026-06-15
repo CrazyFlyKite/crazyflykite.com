@@ -112,24 +112,26 @@ module.exports = (pool) => {
 						return { levelID: parseInt(levelID), placement: parseInt(placement), name: name, publisher: publisher };
 				}) : [];
 
+
 				return {
 					playerID: row.player_id,
-					playerName: row.player_name,
-					playerNationality: row.player_nationality,
-					points: parseInt(row.points) || 0,
-					mainList: parseInt(row.main_list) || 0,
-					extendedList: parseInt(row.extended_list) || 0,
-					legacyList: parseInt(row.legacy_list) || 0,
-					levelsVerified: allRecords
+					playerName: row.is_banned ? null : row.player_name,
+					playerNationality: row.is_banned ? null : row.player_nationality,
+					isBanned: Boolean(row.is_banned),
+					points: row.is_banned ? 0 : (parseInt(row.points) || 0),
+					mainList: row.is_banned ? 0 : (parseInt(row.main_list) || 0),
+					extendedList: row.is_banned ? 0 : (parseInt(row.extended_list) || 0),
+					legacyList: row.is_banned ? 0 : (parseInt(row.legacy_list) || 0),
+					levelsVerified: row.is_banned ? [] : allRecords
 						.filter(r => r.isVerifier)
-						.map(({ levelID, placement, name, publisher, points }) => ({ levelID, placement, name, publisher, points })),
-					levelsCompleted: allRecords
+						.map(({levelID, placement, name, publisher, points}) => ({levelID, placement, name, publisher, points})),
+					levelsCompleted: row.is_banned ? [] : allRecords
 						.filter(r => !r.isVerifier && r.progress === 100)
-						.map(({ levelID, placement, name, publisher, points }) => ({ levelID, placement, name, publisher, points })),
-					progressOn: allRecords
+						.map(({levelID, placement, name, publisher, points}) => ({levelID, placement, name, publisher, points})),
+					progressOn: row.is_banned ? [] : allRecords
 						.filter(r => !r.isVerifier && r.progress < 100)
-						.map(({ levelID, placement, name, publisher, progress, points, listPercentagePoints}) => ({ levelID, placement, name, publisher, progress, points, listPercentagePoints })),
-					levelsCreated: created
+						.map(({levelID, placement, name, publisher, progress, points, listPercentagePoints}) => ({levelID, placement, name, publisher, progress, points, listPercentagePoints})),
+					levelsCreated: row.is_banned ? [] : created
 				};
 			});
 

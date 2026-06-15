@@ -17,7 +17,7 @@ async function init() {
 
 		const response = await fetch('/api/stats_viewer');
 		playersData = await response.json();
-		renderPlayerList(playersData);
+		renderPlayerList(playersData.filter(p => !p.isBanned));
 
 		if (playerID) {
 			const targetPlayer = playersData.find(p => p.playerID === playerID);
@@ -25,7 +25,11 @@ async function init() {
 			if (targetPlayer) {
 				const rank = playersData.indexOf(targetPlayer) + 1;
 				selectPlayer(targetPlayer.playerID, null, rank);
-			} else console.error('Player ID from URL not found in database:', playerID);
+			} else {
+				const cleanUrl = new URL(window.location);
+				cleanUrl.search = '';
+				window.history.replaceState({ path: cleanUrl.href }, '', cleanUrl.href);
+			}
 		}
 	} catch (error) {
 		console.warn('Error loading players:', error);
@@ -68,6 +72,15 @@ function selectPlayer(id, element, rank) {
 
 function renderPlayerCard(player, rank) {
 	const card = document.getElementById('player-card');
+
+	if (player.isBanned) {
+		card.innerHTML = '<p style="text-align: center; opacity: 0.5;">This player is banned</p>'
+		return;
+	} else if (!player) {
+		card.innerHTML = '<p style="text-align: center; opacity: 0.5;">This player is banned</p>'
+		return;
+	}
+
 	document.title = `SeaGDPS Stats Viewer | ${player.playerName}`;
 
 	const allFinishedLevels = [

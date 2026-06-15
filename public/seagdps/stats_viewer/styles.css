@@ -81,6 +81,11 @@ main {
 	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
 }
 
+.player-card-text {
+	opacity: 0.5;
+	text-align: center;
+}
+
 .stat-section {
 	margin-top: 25px;
 }
