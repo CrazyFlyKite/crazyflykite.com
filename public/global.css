@@ -31,6 +31,11 @@ footer p {
 	font-size: 20px;
 }
 
+footer a {
+	text-decoration: none;
+	color: white;
+}
+
 /* Title */
 .header-top {
 	position: relative;

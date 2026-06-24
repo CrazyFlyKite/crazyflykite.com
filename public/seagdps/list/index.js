@@ -1,5 +1,7 @@
 // Constants
-let levelsData = [];
+let levelsData;
+let listData;
+let listMap;
 const difficulties = {
 	1: 'easydemon',
 	2: 'mediumdemon',
@@ -18,19 +20,25 @@ const listTypes = {
 	1: 'Main List',
 	2: 'Extended List',
 	3: 'Legacy List'
-}
-const statsViewerLink = '/seagdps/stats_viewer/?player='
-
-// Variables
-let createdMainListTitle = false;
-let createdExtendedListTitle = false;
-let createdLegacyListTitle = false;
+};
 
 // Functions
 async function init() {
 	try {
-		const response = await fetch('/api/demonlist');
-		levelsData = await response.json();
+		const listResponse = await fetch(`/api/lists`)
+		const listDataData = await listResponse.json()
+
+		listMap = Object.fromEntries(listDataData.map(l => [l.listName, l.listId]))
+
+		const pathParts = window.location.pathname.split('/').filter(Boolean);
+		const slug = pathParts[pathParts.length - 1];
+
+		const listId = listMap[slug] || listMap.demonlist;
+
+		listData = listDataData.find(l => l.listId === listId);
+
+		const levelResponse = await fetch(`/api/lists/${listId}/levels`);
+		levelsData = await levelResponse.json();
 
 		const urlParams = new URLSearchParams(window.location.search);
 		const searchParam = urlParams.get('search');
@@ -54,6 +62,15 @@ async function init() {
 			updateList();
 		});
 
+		// Adapt the list
+		document.title = `SeaGDPS ${listData.displayName}`;
+		document.querySelector('h1').innerText = `${listData.displayName}`;
+		document.documentElement.style.setProperty('--active-list-color', getComputedStyle(document.documentElement)
+			.getPropertyValue(`--${listData.listName}-color`)
+			.trim()
+		);
+		document.querySelector('#api-button').href = `/api/lists/${listData.listId}/levels`;
+
 		updateList();
 	} catch (error) {
 		console.error('Error loading Demonlist:', error);
@@ -64,12 +81,13 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	const clone = document.querySelector('#level-template').content.cloneNode(true);
 
 	// Main
-	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong><a href="${statsViewerLink}${publisher.playerID}" class="player-link">${publisher.name}</a></strong>`;
+	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${publisher.playerId}" class="player-link">${publisher.playerName}</a></strong>`;
 	clone.querySelector('.id').innerHTML = `ID: <strong>${id}</strong>`;
-	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by ${creators.map(c => `<a href="${statsViewerLink}${c.playerID}" class="player-link"><strong>${c.name}</strong></a>`).join(', ')}`;
-	clone.querySelector('.verifier').innerHTML = `Verified by <strong><a href="${statsViewerLink}${verifier.playerID}" class="player-link">${verifier.name}</a></strong>`;
+	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by ${creators.map(c => `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${c.playerId}" class="player-link"><strong>${c.playerName}</strong></a>`).join(', ')}`;
+	clone.querySelector('.verifier').innerHTML = `Verified by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${verifier.playerId}" class="player-link">${verifier.playerName}</a></strong>` + (verifier.timeSpent ? ` (<strong>${verifier.timeSpent}</strong>)` : '');
 	if (points === 0) clone.querySelector('.points').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
-	else clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong> (<strong>100%</strong>) / <strong>${listPercentagePoints} p.</strong> (<strong>${listPercentage}%</strong>)`;
+	if (listPercentage !== null) clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong> (<strong>100%</strong>) / <strong>${listPercentagePoints} p.</strong> (<strong>${listPercentage}%</strong>)`;
+	else clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong>`;
 	clone.querySelector('.difficulty').src = `/images/difficulties/${difficulties[difficulty]}/${ratings[rating]}.png`;
 
 	// Copyable ID
@@ -97,17 +115,23 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 
 	// Victors
 	const victorsList = clone.querySelector('.victors-list');
-	if (victors.length > 0) {
+	if (!victors || victors.length === 0) clone.querySelector('.victors-text').innerHTML = 'Victors: <em>None</em>'; else {
 		victors.forEach(v => {
 			const li = document.createElement('li');
-			if (v.progress === 100) li.innerHTML = `<strong><a href="${statsViewerLink}${v.playerID}" class="player-link">${v.name}</a></strong>`;
-			else {
-				li.innerHTML = `<a href="${statsViewerLink}${v.playerID}" class="player-link">${v.name}</a> (${v.progress}%)`;
-				li.classList.add('non-victor');
+
+			if (v.percentage !== null) {
+				if (v.percentage === 100) li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong>`;
+				else {
+					li.innerHTML = `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a> (${v.percentage}%)`;
+					li.classList.add('non-victor');
+				}
+			} else {
+				if (v.timeSpent !== null) li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong> (<strong>${v.timeSpent}</strong>)`;
+				else li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong>`;
 			}
 			victorsList.appendChild(li);
 		});
-	} else clone.querySelector('.victors-text').innerHTML = 'Victors: <em>None</em>';
+	}
 
 	// Thumbnail
 	clone.querySelector('.level-thumbnail').src = hasThumbnail ? `/images/thumbnails/${id}.jpg` : '/images/thumbnails/default.png';
@@ -131,9 +155,9 @@ function updateList() {
 	const sortOrder = document.querySelector('#level-sort').value;
 
 	let filtered = levelsData.filter(level => {
-		const nameMatch = level.levelName.toLowerCase().includes(searchTerm);
-		const isIDSearch = !isNaN(searchTerm) && searchTerm !== '';
-		const idMatch = isIDSearch ? level.levelID.toString() === searchTerm : level.levelID.toString().includes(searchTerm);
+		const nameMatch = level.levelName.toLowerCase().startsWith(searchTerm);
+		const isIdSearch = searchTerm !== '' && !Number.isNaN(Number(searchTerm))
+		const idMatch = isIdSearch ? level.levelId.toString() === searchTerm : level.levelId.toString().includes(searchTerm);
 
 		return nameMatch || idMatch;
 	});
@@ -146,9 +170,8 @@ function updateList() {
 
 	const url = new URL(window.location);
 	searchTerm ? url.searchParams.set('search', searchTerm) : url.searchParams.delete('search');
-	if (sortOrder === 'desc') url.searchParams.set('sort', 'desc');
-	else url.searchParams.delete('sort');
-	window.history.replaceState({}, '', url);
+	if (sortOrder === 'desc') url.searchParams.set('sort', 'desc'); else url.searchParams.delete('sort');
+	window.history.replaceState({}, '', url.toString());
 
 	renderLevels(filtered);
 }
@@ -175,12 +198,7 @@ function renderLevels(levelsToDisplay) {
 		}
 
 		const originalPlacement = levelsData.indexOf(level);
-		const levelElement = createLevel(
-			originalPlacement, level.levelID, level.levelName, level.publisher,
-			level.creators, level.verifier, level.difficulty, level.rating,
-			level.listPercentage, level.hasThumbnail, level.showcase,
-			level.points, level.listPercentagePoints, level.listType, level.victors
-		);
+		const levelElement = createLevel(originalPlacement, level.levelId, level.levelName, level.publisher, level.creators, level.verifier, level.difficulty, level.rating, level.listPercentage, level.hasThumbnail, level.showcase, level.points, level.listPercentagePoints, level.listType, level.victors);
 		fragment.appendChild(levelElement);
 	});
 

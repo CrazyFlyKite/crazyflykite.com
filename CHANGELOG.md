@@ -1,5 +1,12 @@
 # Changelog
 
+# 3.0.0 | 24.06.2026
+
+- Added more lists support (the changes are massive)
+- Added Pemonlist
+- Redesigned level search
+- Added more rules for new lists and quality standards for the Challenge List
+
 ## 2.2.5 | 15.06.2026
 
 - Added banned players to the Stats Viewer

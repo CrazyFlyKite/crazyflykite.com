@@ -4,10 +4,10 @@ const express = require('express');
 const mysql = require('mysql2');
 const path = require('path');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 const pool = mysql.createPool({
-	host: process.env.HOST_IP || '127.0.0.1',
+	host: process.env.SERVER_IP || '127.0.0.1',
 	user: process.env.MYSQL_USER,
 	password: process.env.MYSQL_PASSWORD,
 	database: 'seagdps',
@@ -27,15 +27,28 @@ pool.getConnection((err, connection) => {
 	connection.release();
 });
 
+app.get('/seagdps/list', (req, res) => {
+	res.redirect('/seagdps/demonlist')
+})
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const listRoutes = require('./routes/api');
-app.use(listRoutes(pool));
+app.use(require('./routes/api')(pool));
 
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+app.get('/seagdps/:listName', (req, res, next) => {
+	const {listName} = req.params
+
+	pool.query('SELECT 1 FROM lists WHERE list_name = ? LIMIT 1', [listName], (err, results) => {
+		if (err) return next(err)
+		if (results.length === 0) return res.redirect('/seagdps')
+		res.sendFile(path.join(__dirname, 'public', 'seagdps', 'list', 'index.html'))
+	})
+})
 
 app.listen(PORT, '0.0.0.0', () => {
 	console.log(`Server running at http://localhost:${PORT}`);

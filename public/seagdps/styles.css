@@ -59,6 +59,10 @@ main a, main button {
 	background: var(--demonlist-color);
 }
 
+#pemonlist {
+	background: var(--pemonlist-color);
+}
+
 #rules {
 	background: var(--rules-color);
 }

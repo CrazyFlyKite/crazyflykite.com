@@ -22,14 +22,19 @@ main {
 	padding: 20px;
 	box-sizing: border-box;
 	flex-wrap: nowrap;
-	min-height: calc(125vh - 100px);
 }
 
 /* Left Column */
+.stats-sidebar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 500px;
+}
+
 .leaderboard-column {
 	position: sticky;
 	width: 350px;
-	height: 650px;
 	min-width: 300px;
 	border: 1px solid rgba(255, 255, 255, 0.1);
 	background: var(--stats-viewer-color);
@@ -60,6 +65,23 @@ main {
 
 .player-item.active {
 	background: rgba(255, 255, 255, 0.25);
+}
+
+#list-selector {
+	width: 100%;
+	margin: 12px;
+	padding: 6px;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.5);
+	background: var(--active-list-color);
+	-webkit-backdrop-filter: blur(12px);
+	backdrop-filter: blur(12px);
+	border-radius: 20px;
+	font-size: 36px;
+	font-weight: bold;
+	text-align: center;
+	color: white;
+	cursor: pointer;
 }
 
 /* Right Column */

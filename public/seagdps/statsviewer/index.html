@@ -7,10 +7,9 @@
 		<meta name="description" content="The Official SeaGDPS Stats Viewer">
 		<meta name="keywords" content="CrazyFlyKite, Geometry Dash, SeaGDPS, Statistics, Stats Viewer, Points">
 		<meta property="og:type" content="website">
-		<meta property="og:url" content="https://crazyflykite.com/seagdps/stats_viewer">
-		<meta property="og:title" content="SeaGDPS Stats Viewer">
-		<meta property="og:site_name" content="SeaGDPS Stats Viewer">
-		<meta property="og:description" content="The Official SeaGDPS Stats Viewer">
+		<meta property="og:title" content="SeaGDPS">
+		<meta property="og:site_name" content="SeaGDPS">
+		<meta property="og:description" content="The Official SeaGDPS Page">
 		<meta property="og:image" content="https://crazyflykite.com/images/icons/seagdps.png">
 		<title>SeaGDPS Stats Viewer</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -25,14 +24,17 @@
 		<header class="header-top">
 			<div class="header-controls">
 				<a href="/seagdps" class="header-control-button" aria-hidden="true"><i class="fa-solid fa-arrow-left"></i></a>
-				<a href="/api/stats_viewer" class="header-control-button" target="_blank" rel="noopener" aria-hidden="true"><i class="fa-solid fa-code"></i></a>
+				<a class="header-control-button" id="api-button" target="_blank" rel="noopener" aria-hidden="true"><i class="fa-solid fa-code"></i></a>
 			</div>
 			<h1>Stats Viewer</h1>
 		</header>
 		<main>
 			<div class="stats-container">
-				<aside class="leaderboard-column">
-					<div id="player-list" class="player-list"></div>
+				<aside class="stats-sidebar">
+					<select id="list-selector"></select>
+					<div class="leaderboard-column">
+						<div id="player-list" class="player-list"></div>
+					</div>
 				</aside>
 				<section class="player-viewer">
 					<div id="player-card" class="player-card-content">
@@ -42,7 +44,7 @@
 			</div>
 		</main>
 		<footer>
-			<p>© CrazyFlyKite 2026</p>
+			<p><a href="/">© CrazyFlyKite 2026</a></p>
 		</footer>
 	</body>
 </html>
