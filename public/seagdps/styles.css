@@ -63,6 +63,10 @@ main a, main button {
 	background: var(--pemonlist-color);
 }
 
+#challengelist {
+	background: var(--challengelist-color);
+}
+
 #rules {
 	background: var(--rules-color);
 }

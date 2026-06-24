@@ -1,6 +1,7 @@
 :root {
 	--demonlist-color: linear-gradient(135deg, rgba(145, 0, 0, 0.75), rgba(229, 31, 46, 0.75));
 	--pemonlist-color: linear-gradient(135deg, rgb(0, 78, 207, 0.75), rgb(27, 120, 255, 0.75));
+	--challengelist-color: linear-gradient(135deg, rgb(155, 135, 13, 0.75), rgb(237, 214, 34, 0.75));
 	--rules-color: linear-gradient(135deg, rgba(47, 47, 47, 0.75), rgba(117, 117, 117, 0.75));
 	--requirements-color: linear-gradient(135deg, rgba(91, 22, 152, 0.75), rgba(116, 0, 255, 0.75));
 	--stats-viewer-color: linear-gradient(135deg, rgb(24, 34, 204, 0.75), rgb(61, 74, 191, 0.75));

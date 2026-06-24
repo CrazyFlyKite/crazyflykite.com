@@ -1,6 +1,10 @@
 # Changelog
 
-# 3.0.0 | 24.06.2026
+## 3.1.0 | 24.06.2026
+
+- Added Challenge List
+
+## 3.0.0 | 24.06.2026
 
 - Added more lists support (the changes are massive)
 - Added Pemonlist

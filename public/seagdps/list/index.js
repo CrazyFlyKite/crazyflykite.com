@@ -88,7 +88,14 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	if (points === 0) clone.querySelector('.points').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
 	if (listPercentage !== null) clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong> (<strong>100%</strong>) / <strong>${listPercentagePoints} p.</strong> (<strong>${listPercentage}%</strong>)`;
 	else clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong>`;
-	clone.querySelector('.difficulty').src = `/images/difficulties/${difficulties[difficulty]}/${ratings[rating]}.png`;
+
+	// Difficulty face
+	const difficultyImage = clone.querySelector('.difficulty')
+	if (difficulty === null || rating === null) difficultyImage.style.display = 'none'
+	else {
+		difficultyImage.style.display = ''
+		difficultyImage.src = `/images/difficulties/${difficulties[difficulty]}/${ratings[rating]}.png`
+	}
 
 	// Copyable ID
 	const idElement = clone.querySelector('.id');
