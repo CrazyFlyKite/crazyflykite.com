@@ -71,6 +71,7 @@ module.exports = (pool) => {
 					verifier: { playerId: row.verifier_id, playerName: row.verifier_name, percentage: row.verifier_percentage, timeSpent: row.verifier_time_spent },
 					difficulty: row.difficulty,
 					rating: row.rating,
+					is2p: row.is_2p === 1,
 					hasThumbnail: row.has_thumbnail === 1,
 					showcase: row.showcase,
 					listPercentage: row.list_percentage,

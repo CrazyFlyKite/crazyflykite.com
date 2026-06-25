@@ -137,6 +137,7 @@ main {
 	color: white;
 	text-decoration: none;
 	white-space: pre-wrap;
+	word-break: break-word;
 }
 
 .level-tag.legacy {

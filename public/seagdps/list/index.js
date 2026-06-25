@@ -77,12 +77,13 @@ async function init() {
 	}
 }
 
-function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, listPercentage, hasThumbnail, showcase, points, listPercentagePoints, listType, victors) {
+function createLevel(placement, id, name, publisher, creators, verifier, difficulty, rating, is2p, listPercentage, hasThumbnail, showcase, points, listPercentagePoints, listType, victors) {
 	const clone = document.querySelector('#level-template').content.cloneNode(true);
 
 	// Main
 	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${publisher.playerId}" class="player-link">${publisher.playerName}</a></strong>`;
 	clone.querySelector('.id').innerHTML = `ID: <strong>${id}</strong>`;
+	clone.querySelector('.is2p').style.display = is2p ? '' : 'none';
 	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by ${creators.map(c => `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${c.playerId}" class="player-link"><strong>${c.playerName}</strong></a>`).join(', ')}`;
 	clone.querySelector('.verifier').innerHTML = `Verified by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${verifier.playerId}" class="player-link">${verifier.playerName}</a></strong>` + (verifier.timeSpent ? ` (<strong>${verifier.timeSpent}</strong>)` : '');
 	if (points === 0) clone.querySelector('.points').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
@@ -205,7 +206,7 @@ function renderLevels(levelsToDisplay) {
 		}
 
 		const originalPlacement = levelsData.indexOf(level);
-		const levelElement = createLevel(originalPlacement, level.levelId, level.levelName, level.publisher, level.creators, level.verifier, level.difficulty, level.rating, level.listPercentage, level.hasThumbnail, level.showcase, level.points, level.listPercentagePoints, level.listType, level.victors);
+		const levelElement = createLevel(originalPlacement, level.levelId, level.levelName, level.publisher, level.creators, level.verifier, level.difficulty, level.rating, level.is2p, level.listPercentage, level.hasThumbnail, level.showcase, level.points, level.listPercentagePoints, level.listType, level.victors);
 		fragment.appendChild(levelElement);
 	});
 

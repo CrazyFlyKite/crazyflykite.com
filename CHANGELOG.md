@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.1 | 25.06.2026
+
+- Added 2P support
+- Fixed Stats Viewer display bug on mobile
+
 ## 3.1.0 | 24.06.2026
 
 - Added Challenge List

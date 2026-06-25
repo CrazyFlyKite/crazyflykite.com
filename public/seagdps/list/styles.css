@@ -87,6 +87,24 @@ hr {
 	filter: drop-shadow(0 0 45px rgb(0, 255, 255));
 }
 
+.is2p {
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	width: 45px;
+	height: 45px;
+	min-width: 45px;
+	min-height: 45px;
+	flex-shrink: 0;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	background: rgba(40, 167, 69, 0.75);
+	backdrop-filter: blur(12px);
+	border-radius: 50%;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: help;
+}
+
 .level-card {
 	position: relative;
 	display: flex;
@@ -112,12 +130,12 @@ hr {
 	position: relative;
 	width: 30%;
 	min-width: 200px;
+	flex-shrink: 0;
 	aspect-ratio: 16 / 9;
 	border: 1px solid white;
 	overflow: hidden;
 	border-radius: 12px;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-	flex-shrink: 0;
 }
 
 .level-thumbnail {
