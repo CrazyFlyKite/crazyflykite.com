@@ -3,11 +3,11 @@ let levelsData;
 let listData;
 let listMap;
 const difficulties = {
-	1: 'easydemon',
-	2: 'mediumdemon',
-	3: 'harddemon',
-	4: 'insanedemon',
-	5: 'extremedemon'
+	1: 'easy-demon',
+	2: 'medium-demon',
+	3: 'hard-demon',
+	4: 'insane-demon',
+	5: 'extreme-demon'
 };
 const ratings = {
 	1: 'rate',
@@ -73,7 +73,7 @@ async function init() {
 
 		updateList();
 	} catch (error) {
-		console.error('Error loading Demonlist:', error);
+		console.error('Error loading:', error);
 	}
 }
 
@@ -142,7 +142,7 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	}
 
 	// Thumbnail
-	clone.querySelector('.level-thumbnail').src = hasThumbnail ? `/images/thumbnails/${id}.jpg` : '/images/thumbnails/default.png';
+	clone.querySelector('.level-thumbnail').src = hasThumbnail ? `${window.ENV.THUMBNAIL_PATH}/${id}.jpg` : `/images/default-thumbnail.png`;
 
 	// Showcase
 	const wrapper = clone.querySelector('.thumbnail-wrapper');

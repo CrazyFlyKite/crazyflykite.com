@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.2 | 27.06.2026
+
+- Remade how website receives thumbnails
+- Made them accessible from the server and while developing
+
 ## 3.1.1 | 25.06.2026
 
 - Added 2P support

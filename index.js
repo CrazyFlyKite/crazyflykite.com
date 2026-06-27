@@ -33,6 +33,15 @@ app.get('/seagdps/list', (req, res) => {
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/thumbnails', express.static('/volume1/shared/seagdps/thumbnails'));
+app.use((req, res, next) => {
+	res.locals.THUMBNAIL_PATH = process.env.THUMBNAIL_PATH || '/ypypp';
+	next();
+});
+app.get('/env.js', (req, res) => {
+	res.type('application/javascript');
+	res.send(`window.ENV = { THUMBNAIL_PATH: "${process.env.THUMBNAIL_PATH || '/thumbnails'}" };`);
+});
 
 app.use(require('./routes/api')(pool));
 
