@@ -21,6 +21,8 @@ module.exports = (pool) => {
 		const query = `
 			SELECT
 				l.*,
+				lp.points AS points,
+				lp.list_percentage_points AS list_percentage_points,
 				p_pub.player_id AS publisher_id,
 				p_pub.player_name AS publisher_name,
 				p_ver.player_id AS verifier_id,
@@ -30,6 +32,7 @@ module.exports = (pool) => {
 				GROUP_CONCAT(DISTINCT CONCAT(p_all.player_id, '::', p_all.player_name) ORDER BY p_all.player_name SEPARATOR '|') AS creator_data,
 				GROUP_CONCAT(DISTINCT CONCAT(p_vic.player_id, '::', p_vic.player_name, '::', COALESCE(r.percentage, -1), '::', COALESCE(r.time_spent, 'NULL')) ORDER BY r.percentage DESC, p_vic.player_name ASC SEPARATOR '|') AS victor_data
 			FROM levels l
+			LEFT JOIN level_points lp ON l.level_id = lp.level_id
 			LEFT JOIN creators c ON l.level_id = c.level_id
 			LEFT JOIN players p_all ON c.player_id = p_all.player_id
 			LEFT JOIN creators c_pub ON l.level_id = c_pub.level_id AND c_pub.is_publisher = 1
@@ -88,14 +91,14 @@ module.exports = (pool) => {
 
 	router.get('/api/lists/:listId/players', (req, res) => {
 		const { listId } = req.params
-		
 		const query = `
 			SELECT
 				s.*,
-				(SELECT GROUP_CONCAT(CONCAT(l2.level_id, '::', l2.placement, '::', l2.level_name, '::', p_pub.player_name, '::', COALESCE(r2.percentage, -1), '::', COALESCE(r2.time_spent, 'NULL'), '::', r2.is_verifier, '::', l2.points, '::', l2.list_percentage_points)
+				(SELECT GROUP_CONCAT(CONCAT(l2.level_id, '::', l2.placement, '::', l2.level_name, '::', p_pub.player_name, '::', COALESCE(r2.percentage, -1), '::', COALESCE(r2.time_spent, 'NULL'), '::', r2.is_verifier, '::', lp2.points, '::', lp2.list_percentage_points)
 				ORDER BY l2.placement ASC SEPARATOR '|')
 				FROM records r2
 				JOIN levels l2 ON r2.level_id = l2.level_id
+				LEFT JOIN level_points lp2 ON l2.level_id = lp2.level_id
 				LEFT JOIN creators c_pub ON l2.level_id = c_pub.level_id AND c_pub.is_publisher = 1
 				LEFT JOIN players p_pub ON c_pub.player_id = p_pub.player_id
 				WHERE r2.player_id = s.player_id AND l2.list_id = s.list_id) AS all_records,
@@ -165,13 +168,13 @@ module.exports = (pool) => {
 		const { listId } = req.params
 
 		const query = `
-			SELECT 
+			SELECT
 				SUM(CASE WHEN list_type = 1 THEN 1 ELSE 0 END) AS total_main,
 				SUM(CASE WHEN list_type = 2 THEN 1 ELSE 0 END) AS total_extended,
 				SUM(CASE WHEN list_type = 3 THEN 1 ELSE 0 END) AS total_legacy
 			FROM levels
 			WHERE list_id = ?
-    	`;
+		`;
 		pool.query(query, [listId], (err, results) => {
 			if (err) return res.status(500).json({ error: err.sqlMessage });
 			const row = results[0];

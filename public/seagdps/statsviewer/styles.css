@@ -112,6 +112,11 @@ main {
 	margin-top: 25px;
 }
 
+.stat-section-created {
+	margin-top: 50px;
+	opacity: 0.75;
+}
+
 .stat-section h3 {
 	font-size: 14px;
 	letter-spacing: 1px;
@@ -140,9 +145,13 @@ main {
 	word-break: break-word;
 }
 
-.level-tag.legacy {
-	opacity: 0.5;
-	border-style: dashed;
+.level-tag-created {
+	background: transparent;
+	opacity: 0.75;
+}
+
+.level-tag-created:hover {
+	opacity: 1;
 }
 
 h3 {

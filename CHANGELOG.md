@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.1.2 | 09.08.2026
+
+- Switched to the new points system
+- Separated created levels more in the Stats Viewer
+
 ## 3.1.2 | 27.06.2026
 
 - Remade how website receives thumbnails

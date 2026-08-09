@@ -159,14 +159,13 @@ function renderPlayerCard(player, rank) {
 
 	// Flags
 	const flag = player.playerNationality ? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="big-flag" title="${player.playerNationality.toUpperCase()}" alt="Player nationality">` : '';
-	const tagClass = (pts) => (pts === 0 ? 'level-tag legacy' : 'level-tag');
 
 	// Levels
 	const completedHTML = player.levelsCompleted.length > 0 ? `
         <div class="stat-section">
             <h3>Completed (${player.levelsCompleted.length})</h3>
             <div class="level-tag-list">
-                ${player.levelsCompleted.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="${tagClass(l.points)}" title="#${l.placement} - ${l.levelName} by ${l.publisher} (${l.points} p.)">${l.levelName}</a>`).join('')}
+                ${player.levelsCompleted.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag" title="#${l.placement} - ${l.levelName} by ${l.publisher} (${l.points} p.)">${l.levelName}</a>`).join('')}
             </div>
         </div>` : '';
 
@@ -174,7 +173,7 @@ function renderPlayerCard(player, rank) {
         <div class="stat-section">
             <h3>Verified (${player.levelsVerified.length})</h3>
             <div class="level-tag-list">
-                ${player.levelsVerified.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="${tagClass(l.points)}" title="#${l.placement} - ${l.levelName} by ${l.publisher} (${l.points} p.)">${l.levelName}</a>`).join('')}
+                ${player.levelsVerified.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag" title="#${l.placement} - ${l.levelName} by ${l.publisher} (${l.points} p.)">${l.levelName}</a>`).join('')}
             </div>
         </div>` : '';
 
@@ -182,15 +181,15 @@ function renderPlayerCard(player, rank) {
         <div class="stat-section">
             <h3>Progress On (${player.progressOn.length})</h3>
             <div class="level-tag-list">
-                ${player.progressOn.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="${tagClass(l.points)}" title="#${l.placement} - ${l.levelName} by ${l.publisher} (${l.listPercentagePoints} p.)">${l.levelName} (${l.percentage}%)</a>`).join('')}
+                ${player.progressOn.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag" title="#${l.placement} - ${l.levelName} by ${l.publisher} (${l.listPercentagePoints} p.)">${l.levelName} (${l.percentage}%)</a>`).join('')}
             </div>
         </div>` : '';
 
 	const createdHTML = player.levelsCreated.length > 0 ? `
-        <div class="stat-section">
+        <div class="stat-section stat-section-created">
             <h3>Created (${player.levelsCreated.length})</h3>
             <div class="level-tag-list">
-                ${player.levelsCreated.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="${tagClass(l.points)}" title="#${l.placement} - ${l.levelName} by ${l.publisher}">${l.levelName}</a>`).join('')}
+                ${player.levelsCreated.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag level-tag-created" title="#${l.placement} - ${l.levelName} by ${l.publisher}">${l.levelName}</a>`).join('')}
             </div>
         </div>` : '';
 
