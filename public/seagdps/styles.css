@@ -67,6 +67,10 @@ main a, main button {
 	background: var(--challengelist-color);
 }
 
+#shittylist {
+	background: var(--shittylist-color);
+}
+
 #rules {
 	background: var(--rules-color);
 }

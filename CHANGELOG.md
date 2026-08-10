@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.3 | 10.08.2026
+
+- Added Shitty List
+
 ## 3.1.2 | 09.08.2026
 
 - Switched to the new points system
