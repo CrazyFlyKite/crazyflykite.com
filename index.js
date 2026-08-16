@@ -27,6 +27,7 @@ pool.getConnection((err, connection) => {
 	connection.release();
 });
 
+// Lists
 app.get('/seagdps/list', (req, res) => {
 	res.redirect('/seagdps/demonlist')
 })
@@ -58,6 +59,22 @@ app.get('/seagdps/:listName', (req, res, next) => {
 		res.sendFile(path.join(__dirname, 'public', 'seagdps', 'list', 'index.html'))
 	})
 })
+
+// GD Spreadsheet
+app.get('/gd-spreadsheet', (req, res) => {
+	res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
+		<head>
+			<meta property="og:title" content="CrazyFlyKite's Extreme Demons List">
+			<meta property="og:description" content="History, dynamic placements, stats, comments, links…">
+			<meta property="og:image" content="https://crazyflykite.com/images/spreadsheet-thumbnail.png">
+			<meta property="og:url" content="https://crazyflykite.com/gd-spreadsheet">
+			<meta http-equiv="refresh" content="0; url=https://docs.google.com/spreadsheets/d/1RVeJvjRrQVf8YRWVj9W_9QWp6lfk93Zd3nXTjpseRKc/edit?usp=sharing">
+		</head>
+    </html>
+  `);
+});
 
 app.listen(PORT, '0.0.0.0', () => {
 	console.log(`Server running at http://localhost:${PORT}`);

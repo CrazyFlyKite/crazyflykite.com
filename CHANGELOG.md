@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.1.4 | 16.08.2026
+
+- Added a /gd-spreadsheet shortcut for easily sharing a Google Sheets spreadsheet
+
 ## 3.1.3 | 10.08.2026
 
 - Added Shitty List
