@@ -1,14 +1,25 @@
 {
-	"name": "CrazyFlyKite",
-	"version": "1.0.0",
-	"description": "",
-	"main": "public/index.js",
+	"name": "crazyflykite.com",
+	"version": "3.1.6",
+	"description": "Personal website of CrazyFlyKite",
+	"main": "index.js",
 	"private": true,
+	"license": "UNLICENSED",
 	"dependencies": {
-		"dotenv": "^17.2.3",
+		"dotenv": "^17.4.2",
 		"express": "^5.2.1",
-		"mysql2": "^3.16.0"
+		"mysql2": "^3.24.3"
 	},
-	"homepage": "https://github.com/CrazyFlyKite/crazyflykite.com",
-	"email": "karpenkoartem2846@gmail.com"
+	"scripts": {
+		"start": "node index.js"
+	},
+	"homepage": "https://crazyflykite.com",
+	"author": {
+		"name": "CrazyFlyKite",
+		"email": "karpenkoartem2846@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/CrazyFlyKite/crazyflykite.com"
+	}
 }

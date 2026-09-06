@@ -63,8 +63,6 @@ module.exports = (pool) => {
 					return { playerId: parseInt(playerId), playerName: playerName, percentage: percentage === '-1' ? null : parseInt(percentage), timeSpent: timeSpent === 'NULL' ? null : timeSpent};
 				}) : [];
 
-				const { creator_names, victor_data, ...rest } = row;
-
 				return {
 					levelId: row.level_id,
 					placement: row.placement,

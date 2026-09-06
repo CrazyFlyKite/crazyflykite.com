@@ -1,14 +1,22 @@
 # Changelog
 
-## 3.1.4 | 16.08.2026
+## 3.1.6 | 06.09.2026
+
+- Improved /gd-spreadsheet shortcut
+- Colored verifiers green
+- Added forgotten links to sitemap.xml
+- Improved package.json
+- Added a new requirement
+
+## 3.1.5 | 16.08.2026
 
 - Added a /gd-spreadsheet shortcut for easily sharing a Google Sheets spreadsheet
 
-## 3.1.3 | 10.08.2026
+## 3.1.4 | 10.08.2026
 
 - Added Shitty List
 
-## 3.1.2 | 09.08.2026
+## 3.1.3 | 09.08.2026
 
 - Switched to the new points system
 - Separated created levels more in the Stats Viewer

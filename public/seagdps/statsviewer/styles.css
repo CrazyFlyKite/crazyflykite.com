@@ -145,6 +145,11 @@ main {
 	word-break: break-word;
 }
 
+.level-tag-verified {
+	border: 1px solid rgba(0, 255, 0, 0.1);
+	background: rgb(0, 255, 0, 0.25)
+}
+
 .level-tag-created {
 	background: transparent;
 	opacity: 0.75;

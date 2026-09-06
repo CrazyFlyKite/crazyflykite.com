@@ -21,6 +21,16 @@
 		<priority>0.9</priority>
 	</url>
 	<url>
+		<loc>https://crazyflykite.com/seagdps/challengelist</loc>
+		<lastmod>2026-06-24</lastmod>
+		<priority>0.9</priority>
+	</url>
+	<url>
+		<loc>https://crazyflykite.com/seagdps/shittylist</loc>
+		<lastmod>2026-08-10</lastmod>
+		<priority>0.9</priority>
+	</url>
+	<url>
 		<loc>https://crazyflykite.com/seagdps/statsviewer</loc>
 		<lastmod>2026-06-24</lastmod>
 		<priority>0.9</priority>

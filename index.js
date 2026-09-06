@@ -36,7 +36,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/thumbnails', express.static('/volume1/shared/seagdps/thumbnails'));
 app.use((req, res, next) => {
-	res.locals.THUMBNAIL_PATH = process.env.THUMBNAIL_PATH || '/ypypp';
+	res.locals.THUMBNAIL_PATH = process.env.THUMBNAIL_PATH || '/thumbnails';
 	next();
 });
 app.get('/env.js', (req, res) => {
@@ -61,21 +61,28 @@ app.get('/seagdps/:listName', (req, res, next) => {
 })
 
 // GD Spreadsheet
+const redirectLink = 'https://docs.google.com/spreadsheets/d/1RVeJvjRrQVf8YRWVj9W_9QWp6lfk93Zd3nXTjpseRKc/edit?usp=sharing';
 app.get('/gd-spreadsheet', (req, res) => {
 	res.send(`
     <!DOCTYPE html>
     <html lang="en">
 		<head>
-			<meta property="og:title" content="CrazyFlyKite's Extreme Demons List">
-			<meta property="og:description" content="History, dynamic placements, stats, comments, links…">
+			<meta charset="UTF-8">
+			<meta property="og:type" content="website">
+			<meta property="og:title" content="CrazyFlyKite's Extreme Demon Spreadsheet">
+			<meta property="og:description" content="Completion history, stats, comments, links… - Google Sheets">
 			<meta property="og:image" content="https://crazyflykite.com/images/spreadsheet-thumbnail.png">
 			<meta property="og:url" content="https://crazyflykite.com/gd-spreadsheet">
-			<meta http-equiv="refresh" content="0; url=https://docs.google.com/spreadsheets/d/1RVeJvjRrQVf8YRWVj9W_9QWp6lfk93Zd3nXTjpseRKc/edit?usp=sharing">
+			<meta http-equiv="refresh" content="0; url=${redirectLink}">
 		</head>
+		<body>
+   			<a href="${redirectLink}">Redirect…</a>
+		</body>
     </html>
   `);
 });
 
+// Run
 app.listen(PORT, '0.0.0.0', () => {
 	console.log(`Server running at http://localhost:${PORT}`);
 });
@@ -87,3 +94,6 @@ setInterval(() => {
 		else console.log('Database heartbeat sent.');
 	});
 }, 1800000);
+
+// Exit
+process.on('SIGINT', () => pool.end(() => process.exit(0)));
