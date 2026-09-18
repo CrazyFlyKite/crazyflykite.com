@@ -81,11 +81,11 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	const clone = document.querySelector('#level-template').content.cloneNode(true);
 
 	// Main
-	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${publisher.playerId}" class="player-link">${publisher.playerName}</a></strong>`;
+	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${publisher.playerId}" class="player-link">${publisher.isBanned ? '-' : publisher.playerName}</a></strong>`;
 	clone.querySelector('.id').innerHTML = `ID: <strong>${id}</strong>`;
 	clone.querySelector('.is2p').style.display = is2p ? '' : 'none';
-	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by ${creators.map(c => `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${c.playerId}" class="player-link"><strong>${c.playerName}</strong></a>`).join(', ')}`;
-	clone.querySelector('.verifier').innerHTML = `Verified by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${verifier.playerId}" class="player-link">${verifier.playerName}</a></strong>` + (verifier.timeSpent ? ` (<strong>${verifier.timeSpent}</strong>)` : '');
+	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by ${creators.map(c => `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${c.playerId}" class="player-link"><strong>${c.isBanned ? '-' : c.playerName}</strong></a>`).join(', ')}`;
+	clone.querySelector('.verifier').innerHTML = `Verified by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${verifier.playerId}" class="player-link">${verifier.isBanned ? '-' : verifier.playerName}</a></strong>` + (verifier.timeSpent ? ` (<strong>${verifier.timeSpent}</strong>)` : '');
 	if (points === 0) clone.querySelector('.points').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
 	if (listPercentage !== null) clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong> (<strong>100%</strong>) / <strong>${listPercentagePoints} p.</strong> (<strong>${listPercentage}%</strong>)`;
 	else clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong>`;
@@ -123,21 +123,24 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 
 	// Victors
 	const victorsList = clone.querySelector('.victors-list');
-	if (!victors || victors.length === 0) clone.querySelector('.victors-text').innerHTML = 'Victors: <em>None</em>'; else {
+	if (!victors || victors.length === 0) clone.querySelector('.victors-text').innerHTML = 'Victors: <em>None</em>';
+	else {
 		victors.forEach(v => {
-			const li = document.createElement('li');
+			if (!v.isBanned) {
+				const li = document.createElement('li');
 
-			if (v.percentage !== null) {
-				if (v.percentage === 100) li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong>`;
-				else {
-					li.innerHTML = `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a> (${v.percentage}%)`;
-					li.classList.add('non-victor');
+				if (v.percentage !== null) {
+					if (v.percentage === 100) li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong>`;
+					else {
+						li.innerHTML = `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a> (${v.percentage}%)`;
+						li.classList.add('non-victor');
+					}
+				} else {
+					if (v.timeSpent !== null) li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong> (<strong>${v.timeSpent}</strong>)`;
+					else li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong>`;
 				}
-			} else {
-				if (v.timeSpent !== null) li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong> (<strong>${v.timeSpent}</strong>)`;
-				else li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong>`;
+				victorsList.appendChild(li);
 			}
-			victorsList.appendChild(li);
 		});
 	}
 

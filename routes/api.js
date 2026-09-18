@@ -8,7 +8,7 @@ module.exports = (pool) => {
 				list_name AS listName,
 				display_name AS displayName
 			FROM lists
-			ORDER BY list_id ASC
+			ORDER BY list_id
 		`, (err, rows) => {
 			if (err) return res.status(500).json({ error: err.message })
 			res.json(rows)
@@ -25,12 +25,14 @@ module.exports = (pool) => {
 				lp.list_percentage_points AS list_percentage_points,
 				p_pub.player_id AS publisher_id,
 				p_pub.player_name AS publisher_name,
+				p_pub.is_banned AS publisher_banned,
 				p_ver.player_id AS verifier_id,
 				p_ver.player_name AS verifier_name,
+				p_ver.is_banned AS verifier_banned,
 				r_ver.percentage AS verifier_percentage,
 				r_ver.time_spent AS verifier_time_spent,
-				GROUP_CONCAT(DISTINCT CONCAT(p_all.player_id, '::', p_all.player_name) ORDER BY p_all.player_name SEPARATOR '|') AS creator_data,
-				GROUP_CONCAT(DISTINCT CONCAT(p_vic.player_id, '::', p_vic.player_name, '::', COALESCE(r.percentage, -1), '::', COALESCE(r.time_spent, 'NULL')) ORDER BY r.percentage DESC, p_vic.player_name ASC SEPARATOR '|') AS victor_data
+				GROUP_CONCAT(DISTINCT CONCAT(p_all.player_id, '::', p_all.player_name, '::', p_all.is_banned) ORDER BY p_all.player_name SEPARATOR '|') AS creator_data,
+				GROUP_CONCAT(DISTINCT CONCAT(p_vic.player_id, '::', p_vic.player_name, '::', COALESCE(r.percentage, -1), '::', COALESCE(r.time_spent, 'NULL'), '::', p_vic.is_banned) ORDER BY r.percentage DESC, p_vic.player_name ASC SEPARATOR '|') AS victor_data
 			FROM levels l
 			LEFT JOIN level_points lp ON l.level_id = lp.level_id
 			LEFT JOIN creators c ON l.level_id = c.level_id
@@ -42,8 +44,8 @@ module.exports = (pool) => {
 			LEFT JOIN records r ON l.level_id = r.level_id AND r.is_verifier = 0
 			LEFT JOIN players p_vic ON r.player_id = p_vic.player_id
 			WHERE l.list_id = ?
-			GROUP BY l.level_id
-			ORDER BY l.placement ASC
+			GROUP BY l.level_id, l.placement
+			ORDER BY l.placement
 		`;
 
 		pool.query(query, [listId], (err, results) => {
@@ -54,13 +56,23 @@ module.exports = (pool) => {
 
 			const formattedResults = results.map(row => {
 				const creators = row.creator_data ? row.creator_data.split('|').map(c => {
-					const [playerId, playerName] = c.split('::');
-					return { playerId: parseInt(playerId), playerName: playerName };
+					const [playerId, playerName, isBanned] = c.split('::');
+					return {
+						playerId: parseInt(playerId),
+						playerName: isBanned === '1' ? null : playerName,
+						isBanned: isBanned === '1'
+					};
 				}) : [];
 
 				const victors = row.victor_data ? row.victor_data.split('|').map(v => {
-					const [playerId, playerName, percentage, timeSpent] = v.split('::');
-					return { playerId: parseInt(playerId), playerName: playerName, percentage: percentage === '-1' ? null : parseInt(percentage), timeSpent: timeSpent === 'NULL' ? null : timeSpent};
+					const [playerId, playerName, percentage, timeSpent, isBanned] = v.split('::');
+					return {
+						playerId: parseInt(playerId),
+						playerName: isBanned === '1' ? null : playerName,
+						percentage: isBanned === '1' ? null : (percentage === '-1' ? null : parseInt(percentage)),
+						timeSpent: isBanned === '1' ? null : (timeSpent === 'NULL' ? null : timeSpent),
+						isBanned: isBanned === '1'
+					};
 				}) : [];
 
 				return {
@@ -68,8 +80,18 @@ module.exports = (pool) => {
 					placement: row.placement,
 					levelName: row.level_name,
 					creators: creators,
-					publisher: { playerId: row.publisher_id, playerName: row.publisher_name },
-					verifier: { playerId: row.verifier_id, playerName: row.verifier_name, percentage: row.verifier_percentage, timeSpent: row.verifier_time_spent },
+					publisher: {
+						playerId: row.publisher_id,
+						playerName: row.publisher_banned ? null : row.publisher_name,
+						isBanned: row.publisher_banned === 1
+					},
+					verifier: {
+						playerId: row.verifier_id,
+						playerName: row.verifier_banned ? null : row.verifier_name,
+						percentage: row.verifier_banned ? null : row.verifier_percentage,
+						timeSpent: row.verifier_banned ? null : row.verifier_time_spent,
+						isBanned: row.verifier_banned === 1
+					},
 					difficulty: row.difficulty,
 					rating: row.rating,
 					is2p: row.is_2p === 1,
@@ -108,7 +130,7 @@ module.exports = (pool) => {
 				WHERE c.player_id = s.player_id AND l3.list_id = s.list_id) AS levels_created
 			FROM stats s
 			WHERE s.list_id = ?
-			ORDER BY s.points DESC, s.player_name ASC
+			ORDER BY s.points DESC, s.player_name
 		`;
 
 		pool.query(query, [listId], (err, results) => {
@@ -141,8 +163,9 @@ module.exports = (pool) => {
 
 				return {
 					playerId: row.player_id,
-					playerName: row.player_name,
+					playerName: row.is_banned ? null : row.player_name,
 					playerNationality: row.is_banned ? null : row.player_nationality,
+					device: row.device,
 					isBanned: Boolean(row.is_banned),
 					points: row.is_banned ? 0 : (parseInt(row.points) || 0),
 					mainList: row.is_banned ? 0 : (parseInt(row.main_list) || 0),

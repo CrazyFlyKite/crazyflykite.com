@@ -171,7 +171,7 @@ a {
 }
 
 /* Flags */
-.little-flag, .big-flag {
+.small-icon, .big-icon {
 	display: inline-block;
 	border: 1px solid rgba(255, 255, 255, 0.15);
 	border-radius: 50%;
@@ -179,14 +179,14 @@ a {
 	object-fit: cover;
 }
 
-.little-flag {
+.small-icon {
 	width: 20px;
 	height: 20px;
 	margin: 3px;
 	transform: translateY(7px);
 }
 
-.big-flag {
+.big-icon {
 	width: 50px;
 	height: 50px;
 	transform: translateY(10px);
@@ -211,5 +211,10 @@ a {
 	.leaderboard-column {
 		width: 100%;
 		height: 250px;
+	}
+
+	.stats-sidebar {
+		width: 100%;
+		height: 300px;
 	}
 }

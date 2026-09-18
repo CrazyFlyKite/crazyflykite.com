@@ -6,6 +6,7 @@ let globalTotals = {
 	legacy: 0
 };
 let listMap = {};
+let countries = {};
 let currentListName;
 
 // Functions
@@ -22,11 +23,20 @@ async function loadData(listId) {
 	const response = await fetch(`/api/lists/${listId}/players`);
 	playersData = await response.json();
 
-	renderPlayerList(playersData.filter(p => !p.isBanned));
+	await renderPlayerList(playersData.filter(p => !p.isBanned));
 }
+
+function getDeviceTag(device) {
+	if (device === 'mobile') return 'Mobile Player';
+	else if (device === 'pc') return 'PC Player';
+	else return 'PC/Mobile Player';
+}
+
 
 async function init() {
 	try {
+		countries = await fetch('/other/countries.json').then(res => res.json());
+
 		// URL parameters
 		const urlParams = new URLSearchParams(window.location.search);
 		const playerId = parseInt(urlParams.get('player'));
@@ -73,7 +83,7 @@ async function init() {
 
 			if (targetPlayer) {
 				const rank = playersData.indexOf(targetPlayer) + 1;
-				selectPlayer(targetPlayer.playerId, null, rank);
+				await selectPlayer(targetPlayer.playerId, null, rank);
 			} else {
 				const cleanUrl = new URL(window.location);
 				cleanUrl.search = '';
@@ -85,15 +95,17 @@ async function init() {
 	}
 }
 
-function renderPlayerList(players) {
+async function renderPlayerList(players) {
 	const listContainer = document.querySelector('#player-list');
 	listContainer.innerHTML = players.map((player, index) => {
 		if (player.levelsVerified.length > 0 || player.levelsCompleted.length > 0 || player.progressOn.length > 0) {
-			const flag = player.playerNationality ? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="little-flag" title="${player.playerNationality.toUpperCase()}" alt="Player nationality">` : '';
+			const countryName = countries[player.playerNationality.toLowerCase()] || player.playerNationality;
+			const flag = player.playerNationality ? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="small-icon" title="${countryName}" alt="Player nationality">` : '';
+			const device = `<img src="/images/devices/${player.device}.png" class="small-icon" title="${getDeviceTag(player.device)}" alt="Device">`;
 
 			return `
 				<div class="player-item" id="player-item-${player.playerId}" onclick="selectPlayer(${player.playerId}, this, ${index + 1})">
-					<span>${flag} #${index + 1} - <strong>${player.playerName}</strong></span>
+					<span>${flag}${device} #${index + 1} - <strong>${player.playerName}</strong></span>
 					<span><strong>${player.points}</strong> p.</span>
 				</div>
 			`;
@@ -101,7 +113,7 @@ function renderPlayerList(players) {
 	}).join('');
 }
 
-function selectPlayer(id, element, rank) {
+async function selectPlayer(id, element, rank) {
 	document.querySelectorAll('.player-item').forEach(el => el.classList.remove('active'));
 
 	const activeEl = element || document.querySelector(`#player-item-${id}`);
@@ -109,7 +121,7 @@ function selectPlayer(id, element, rank) {
 
 	const player = playersData.find(p => p.playerId === id);
 	if (player) {
-		renderPlayerCard(player, rank);
+		await renderPlayerCard(player, rank);
 
 		const newUrl = new URL(window.location);
 		newUrl.searchParams.set('player', id);
@@ -117,13 +129,10 @@ function selectPlayer(id, element, rank) {
 	}
 }
 
-function renderPlayerCard(player, rank) {
+async function renderPlayerCard(player, rank) {
 	const card = document.querySelector('#player-card');
 
 	if (player.isBanned) {
-		card.innerHTML = '<p style="text-align: center; opacity: 0.5;">This player is banned</p>';
-		return;
-	} else if (!player) {
 		card.innerHTML = '<p style="text-align: center; opacity: 0.5;">This player is banned</p>';
 		return;
 	}
@@ -136,12 +145,8 @@ function renderPlayerCard(player, rank) {
 
 	if (allFinishedLevels.length > 0) {
 		const hardest = allFinishedLevels.reduce((prev, curr) => (prev.placement < curr.placement) ? prev : curr);
-
 		hardestHTML = `<h3>Hardest: #${hardest.placement} - <strong><a href="/seagdps/${currentListName}/?search=${hardest.levelId}">${hardest.levelName}</a></strong> by <strong>${hardest.publisher}</strong>${hardest.isVerified ? ' <em>(Verified)</em>' : ''}</h3>`;
 	}
-
-
-	console.log(globalTotals.main);
 
 	// Different list types
 	const parts = []
@@ -158,7 +163,11 @@ function renderPlayerCard(player, rank) {
 	let listStatsHTML = `<h3>${parts.join(', ')}</h3>`;
 
 	// Flags
-	const flag = player.playerNationality ? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="big-flag" title="${player.playerNationality.toUpperCase()}" alt="Player nationality">` : '';
+	const countryName = countries[player.playerNationality.toLowerCase()] || player.playerNationality;
+	const flag = player.playerNationality ? `<img src="https://hatscripts.github.io/circle-flags/flags/${player.playerNationality.toLowerCase()}.svg" class="big-icon" title="${countryName}" alt="Player nationality">` : '';
+
+	// Device
+	const device = `<img src="/images/devices/${player.device}.png" class="big-icon" title="${getDeviceTag(player.device)}" alt="Device">`;
 
 	// Levels
 	const completedHTML = player.levelsCompleted.length > 0 ? `
@@ -194,7 +203,7 @@ function renderPlayerCard(player, rank) {
         </div>` : '';
 
 	card.innerHTML = `
-        <h2>${flag} #${rank} - <strong>${player.playerName}</strong> - <strong>${player.points}</strong> p.</h2>
+        <h2>${flag} ${device} #${rank} - <strong>${player.playerName}</strong> - <strong>${player.points}</strong> p.</h2>
         
         ${hardestHTML}
         ${listStatsHTML}

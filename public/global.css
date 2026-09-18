@@ -81,18 +81,13 @@ abbr {
 }
 
 /* Mobile */
-@media (max-width: 400px) {
+@media (max-width: 768px) {
 	.list-header h1 {
 		font-size: 1.5rem;
 		margin-left: 40px;
 	}
-}
 
-@media (max-width: 768px) {
-	.header-control-button {
-		top: 2px;
-		left: 2px;
-		width: 35px;
-		height: 35px;
+	.header-controls {
+		display: none;
 	}
 }

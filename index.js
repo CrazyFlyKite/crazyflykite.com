@@ -61,7 +61,7 @@ app.get('/seagdps/:listName', (req, res, next) => {
 })
 
 // GD Spreadsheet
-const redirectLink = 'https://docs.google.com/spreadsheets/d/1RVeJvjRrQVf8YRWVj9W_9QWp6lfk93Zd3nXTjpseRKc/edit?usp=sharing';
+const redirectLink = 'https://docs.google.com/spreadsheets/d/1RVeJvjRrQVf8YRWVj9W_9QWp6lfk93Zd3nXTjpseRKc/edit?usp=sharing&fvid=1093426322';
 app.get('/gd-spreadsheet', (req, res) => {
 	res.send(`
     <!DOCTYPE html>
@@ -70,7 +70,7 @@ app.get('/gd-spreadsheet', (req, res) => {
 			<meta charset="UTF-8">
 			<meta property="og:type" content="website">
 			<meta property="og:title" content="CrazyFlyKite's Extreme Demon Spreadsheet">
-			<meta property="og:description" content="Completion history, stats, comments, links… - Google Sheets">
+			<meta property="og:description" content="Completion history, stats, comments, links…">
 			<meta property="og:image" content="https://crazyflykite.com/images/spreadsheet-thumbnail.png">
 			<meta property="og:url" content="https://crazyflykite.com/gd-spreadsheet">
 			<meta http-equiv="refresh" content="0; url=${redirectLink}">

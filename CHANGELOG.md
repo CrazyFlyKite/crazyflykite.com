@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.1.7 | 18.09.2026
+
+- Fully redacted banned players
+- Added device tags
+- Fixed mobile UI issues
+- Added countries.json
+
 ## 3.1.6 | 06.09.2026
 
 - Improved /gd-spreadsheet shortcut
