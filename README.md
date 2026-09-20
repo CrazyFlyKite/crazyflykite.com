@@ -8,11 +8,12 @@ Version changelog can be found in [`CHANGELOG.md`](CHANGELOG.md)
 
 ## File Structure
 
-- [`index.js`](index.js) - Main entry point where the connection with the database is happening
-
+- [`index.js`](index.js) - Main entry point
+- [`database/`](database) - Database connection and queries
+- [`services/`](services) - Assembling and formatting the data
+- [`utils/format.js`](utils/format.js) - Helper functions (e.g., properly format certain chunks of data)
 - [`routes/api.js`](routes/api.js) - API router which handles database queries
-
-- [`public/`](public) - Frontend assets
+- [`public/`](public) - Frontend
 
 ## .env
 

@@ -142,10 +142,9 @@ async function renderPlayerCard(player, rank) {
 	const allFinishedLevels = [...player.levelsCompleted.map(l => ({...l, isVerified: false})), ...player.levelsVerified.map(l => ({...l, isVerified: true}))];
 
 	let hardestHTML = '<h3>Hardest: <em>None</em></h3>';
-
 	if (allFinishedLevels.length > 0) {
 		const hardest = allFinishedLevels.reduce((prev, curr) => (prev.placement < curr.placement) ? prev : curr);
-		hardestHTML = `<h3>Hardest: #${hardest.placement} - <strong><a href="/seagdps/${currentListName}/?search=${hardest.levelId}">${hardest.levelName}</a></strong> by <strong>${hardest.publisher}</strong>${hardest.isVerified ? ' <em>(Verified)</em>' : ''}</h3>`;
+		hardestHTML = `<h3>Hardest: #${hardest.placement} - <strong><a href="/seagdps/${currentListName}/?search=${hardest.levelId}">${hardest.levelName}</a></strong> by <strong><a href="/seagdps/statsviewer/?list=${currentListName}&player=${hardest.publisher.playerId}">${hardest.publisher.isBanned ? '-' : hardest.publisher.playerName}</a></strong>${hardest.isVerified ? ' <em>(Verified)</em>' : ''}</h3>`;
 	}
 
 	// Different list types
@@ -174,7 +173,7 @@ async function renderPlayerCard(player, rank) {
         <div class="stat-section">
             <h3>Completed (${player.levelsCompleted.length})</h3>
             <div class="level-tag-list">
-                ${player.levelsCompleted.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag" title="#${l.placement} - ${l.levelName} by ${l.publisher} (${l.points} p.)">${l.levelName}</a>`).join('')}
+                ${player.levelsCompleted.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag" title="#${l.placement} - ${l.levelName} by ${l.publisher.isBanned ? '-' : l.publisher.playerName} (${l.points} p.)">${l.levelName}</a>`).join('')}
             </div>
         </div>` : '';
 
@@ -182,7 +181,7 @@ async function renderPlayerCard(player, rank) {
         <div class="stat-section">
             <h3>Verified (${player.levelsVerified.length})</h3>
             <div class="level-tag-list">
-                ${player.levelsVerified.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag level-tag-verified" title="#${l.placement} - ${l.levelName} by ${l.publisher} (${l.points} p.)">${l.levelName}</a>`).join('')}
+                ${player.levelsVerified.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag level-tag-verified" title="#${l.placement} - ${l.levelName} by ${l.publisher.isBanned ? '-' : l.publisher.playerName} (${l.points} p.)">${l.levelName}</a>`).join('')}
             </div>
         </div>` : '';
 
@@ -190,7 +189,7 @@ async function renderPlayerCard(player, rank) {
         <div class="stat-section">
             <h3>Progress On (${player.progressOn.length})</h3>
             <div class="level-tag-list">
-                ${player.progressOn.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag" title="#${l.placement} - ${l.levelName} by ${l.publisher} (${l.listPercentagePoints} p.)">${l.levelName} (${l.percentage}%)</a>`).join('')}
+                ${player.progressOn.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag" title="#${l.placement} - ${l.levelName} by ${l.publisher.isBanned ? '-' : l.publisher.playerName} (${l.listPercentagePoints} p.)">${l.levelName} (${l.percentage}%)</a>`).join('')}
             </div>
         </div>` : '';
 
@@ -198,7 +197,7 @@ async function renderPlayerCard(player, rank) {
         <div class="stat-section stat-section-created">
             <h3>Created (${player.levelsCreated.length})</h3>
             <div class="level-tag-list">
-                ${player.levelsCreated.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag level-tag-created" title="#${l.placement} - ${l.levelName} by ${l.publisher}">${l.levelName}</a>`).join('')}
+                ${player.levelsCreated.map(l => `<a href="/seagdps/${currentListName}/?search=${l.levelId}" class="level-tag level-tag-created" title="#${l.placement} - ${l.levelName} by ${l.publisher.isBanned ? '-' : l.publisher.playerName}">${l.levelName}</a>`).join('')}
             </div>
         </div>` : '';
 

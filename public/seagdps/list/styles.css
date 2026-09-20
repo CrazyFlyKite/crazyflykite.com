@@ -16,9 +16,9 @@ h2 {
 	font-weight: normal;
 }
 
-.list-section-title {
+.list-type {
 	width: 400px;
-	margin: 60px 30px 30px 30px;
+	margin: 60px 30px 30px 150px;
 	padding: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	background: var(--active-list-color);
@@ -67,6 +67,8 @@ hr {
 
 /* Difficulty */
 .difficulty {
+	width: 120px;
+	height: 120px;
 	z-index: 2;
 	transition: transform 0.5s ease;
 }
@@ -110,7 +112,7 @@ hr {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	width: 1300px;
+	width: 90%;
 	margin: 20px auto;
 	padding: 15px;
 	border: 1px solid rgba(255, 255, 255, 0.2);
@@ -177,7 +179,6 @@ hr {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	gap: 25px;
 }
 
 .main-info {
@@ -268,10 +269,8 @@ hr {
 	h2 {
 		font-size: 30px;
 	}
-
 	.level-card {
 		flex-direction: column;
-		max-width: 350px;
 	}
 
 	.thumbnail-wrapper {
@@ -281,8 +280,8 @@ hr {
 	}
 
 	.play-button {
-		width: 45px;
-		height: 45px;
+		width: 50px;
+		height: 50px;
 	}
 
 	.level-info {
@@ -300,8 +299,9 @@ hr {
 		height: 100px;
 	}
 
-	.list-section-title {
-		width: 300px;
-		font-size: 35px;
+	.list-type {
+		width: 200px;
+		font-size: 30px;
+		margin-left: 40px;
 	}
 }

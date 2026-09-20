@@ -1,9 +1,15 @@
 # Changelog
 
+## 3.2 | 20.09.2026
+
+- Fully remade the API system by dividing the parts info different files
+- Fixed mobile UI (again)
+- Updated the main page
+
 ## 3.1.7 | 18.09.2026
 
 - Fully redacted banned players
-- Added device tags
+- Added device tags for players
 - Fixed mobile UI issues
 - Added countries.json
 

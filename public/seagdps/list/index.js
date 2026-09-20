@@ -85,7 +85,7 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	clone.querySelector('.id').innerHTML = `ID: <strong>${id}</strong>`;
 	clone.querySelector('.is2p').style.display = is2p ? '' : 'none';
 	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by ${creators.map(c => `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${c.playerId}" class="player-link"><strong>${c.isBanned ? '-' : c.playerName}</strong></a>`).join(', ')}`;
-	clone.querySelector('.verifier').innerHTML = `Verified by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${verifier.playerId}" class="player-link">${verifier.isBanned ? '-' : verifier.playerName}</a></strong>` + (verifier.timeSpent ? ` (<strong>${verifier.timeSpent}</strong>)` : '');
+	clone.querySelector('.verifier').innerHTML = `Verified by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${verifier.playerId}" class="player-link">${verifier.isBanned ? '-' : verifier.playerName}</a></strong>` + ((verifier.timeSpent ? ` (<strong>${verifier.timeSpent}</strong>)` : '') + (verifier.isMobile ? ' 📱' : ''));
 	if (points === 0) clone.querySelector('.points').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
 	if (listPercentage !== null) clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong> (<strong>100%</strong>) / <strong>${listPercentagePoints} p.</strong> (<strong>${listPercentage}%</strong>)`;
 	else clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong>`;
@@ -126,21 +126,21 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	if (!victors || victors.length === 0) clone.querySelector('.victors-text').innerHTML = 'Victors: <em>None</em>';
 	else {
 		victors.forEach(v => {
-			if (!v.isBanned) {
-				const li = document.createElement('li');
+			const li = document.createElement('li');
 
-				if (v.percentage !== null) {
-					if (v.percentage === 100) li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong>`;
-					else {
-						li.innerHTML = `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a> (${v.percentage}%)`;
-						li.classList.add('non-victor');
-					}
-				} else {
-					if (v.timeSpent !== null) li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong> (<strong>${v.timeSpent}</strong>)`;
-					else li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong>`;
+			if (v.percentage !== null) {
+				if (v.percentage === 100) li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong>`;
+				else {
+					li.innerHTML = `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a> (${v.percentage}%)`;
+					li.classList.add('non-victor');
 				}
-				victorsList.appendChild(li);
+			} else {
+				if (v.timeSpent !== null) li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong> (<strong>${v.timeSpent}</strong>)`;
+				else li.innerHTML = `<strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${v.playerId}" class="player-link">${v.playerName}</a></strong>`;
 			}
+
+			if (v.isMobile) li.append(' 📱');
+			victorsList.appendChild(li);
 		});
 	}
 
@@ -202,14 +202,13 @@ function renderLevels(levelsToDisplay) {
 	levelsToDisplay.forEach((level) => {
 		if (level.listType !== lastType) {
 			const header = document.createElement('h3');
-			header.className = 'list-section-title';
+			header.className = 'list-type';
 			header.innerText = listTypes[level.listType];
 			fragment.appendChild(header);
 			lastType = level.listType;
 		}
 
-		const originalPlacement = levelsData.indexOf(level);
-		const levelElement = createLevel(originalPlacement, level.levelId, level.levelName, level.publisher, level.creators, level.verifier, level.difficulty, level.rating, level.is2p, level.listPercentage, level.hasThumbnail, level.showcase, level.points, level.listPercentagePoints, level.listType, level.victors);
+		const levelElement = createLevel(levelsData.indexOf(level), level.levelId, level.levelName, level.publisher, level.creators, level.verifier, level.difficulty, level.rating, level.is2p, level.listPercentage, level.hasThumbnail, level.showcase, level.points, level.listPercentagePoints, level.listType, level.victors);
 		fragment.appendChild(levelElement);
 	});
 
