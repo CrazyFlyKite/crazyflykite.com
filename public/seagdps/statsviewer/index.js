@@ -5,6 +5,7 @@ let globalTotals = {
 	extended: 0,
 	legacy: 0
 };
+let listData = {};
 let listMap = {};
 let countries = {};
 let currentListName;
@@ -42,19 +43,20 @@ async function init() {
 		const playerId = parseInt(urlParams.get('player'));
 
 		const listResponse = await fetch(`/api/lists`);
-		const listData = await listResponse.json();
-		listMap = Object.fromEntries(listData.map(l => [l.listName, l.listId]));
+		const listRawData = await listResponse.json();
+		listMap = Object.fromEntries(listRawData.map(l => [l.listName, l.listId]));
 
 		const listName = urlParams.get('list') || 'demonlist';
 		currentListName = listName;
 		const listId = listMap[listName];
+		listData = listRawData.find(l => l.listId === listId);
 
 		const url = new URL(window.location);
 		url.searchParams.set('list', listName);
 		window.history.replaceState({}, '', url.toString());
 
 		const listSelector = document.querySelector('#list-selector');
-		listSelector.innerHTML = listData.map(l => `<option value="${l.listName}">${l.displayName}</option>`).join('');
+		listSelector.innerHTML = listRawData.map(l => `<option value="${l.listName}" style="background: #${l.secondaryColor}">${l.displayName}</option>`).join('');
 		listSelector.value = listName;
 		listSelector.addEventListener('change', () => {
 			const listName = listSelector.value;
@@ -67,12 +69,7 @@ async function init() {
 		});
 
 		// Adapt the page
-		document.documentElement.style.setProperty(
-			'--active-list-color',
-			getComputedStyle(document.documentElement)
-				.getPropertyValue(`--${listName}-color`)
-				.trim()
-		);
+		document.documentElement.style.setProperty('--active-list-gradient', `linear-gradient(135deg, #${listData.primaryColor}BF, #${listData.secondaryColor}BF)`);
 		document.querySelector('#api-button').href = `/api/lists/${listId}/players`;
 
 		// Load players
@@ -138,7 +135,6 @@ async function renderPlayerCard(player, rank) {
 	}
 
 	document.title = `SeaGDPS Stats Viewer | ${player.playerName}`;
-
 	const allFinishedLevels = [...player.levelsCompleted.map(l => ({...l, isVerified: false})), ...player.levelsVerified.map(l => ({...l, isVerified: true}))];
 
 	let hardestHTML = '<h3>Hardest: <em>None</em></h3>';
@@ -148,7 +144,7 @@ async function renderPlayerCard(player, rank) {
 	}
 
 	// Different list types
-	const parts = []
+	const parts = [];
 
 	if (globalTotals.main > 0)
 		parts.push(`<strong>${player.mainList}</strong>/${globalTotals.main} Main`);

@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.2.1 | 21.09.2026
+
+- Moved list UI parameters to the database
+- Fixed list selection in Stats Viewer
+- Added tooltips for difficulty faces
+- Added some forgotten semicolons
+
 ## 3.2 | 20.09.2026
 
 - Fully remade the API system by dividing the parts info different files

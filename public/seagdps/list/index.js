@@ -3,18 +3,48 @@ let levelsData;
 let listData;
 let listMap;
 const difficulties = {
-	1: 'easy-demon',
-	2: 'medium-demon',
-	3: 'hard-demon',
-	4: 'insane-demon',
-	5: 'extreme-demon'
+	1: {
+		difficultyName: 'easy-demon',
+		displayName: 'Easy Demon'
+	},
+	2: {
+		difficultyName: 'medium-demon',
+		displayName: 'Medium Demon'
+	},
+	3: {
+		difficultyName: 'hard-demon',
+		displayName: 'Hard Demon'
+	},
+	4: {
+		difficultyName: 'insane-demon',
+		displayName: 'Insane Demon'
+	},
+	5: {
+		difficultyName: 'extreme-demon',
+		displayName: 'Extreme Demon'
+	}
 };
 const ratings = {
-	1: 'rate',
-	2: 'featured',
-	3: 'epic',
-	4: 'legendary',
-	5: 'mythic'
+	1: {
+		ratingName: 'rate',
+		displayName: 'Star Rated'
+	},
+	2: {
+		ratingName: 'featured',
+		displayName: 'Featured'
+	},
+	3: {
+		ratingName: 'epic',
+		displayName: 'Epic'
+	},
+	4: {
+		ratingName: 'legendary',
+		displayName: 'Legendary'
+	},
+	5: {
+		ratingName: 'mythic',
+		displayName: 'Mythic'
+	}
 };
 const listTypes = {
 	1: 'Main List',
@@ -26,16 +56,16 @@ const listTypes = {
 async function init() {
 	try {
 		const listResponse = await fetch(`/api/lists`)
-		const listDataData = await listResponse.json()
+		const listRawData = await listResponse.json()
 
-		listMap = Object.fromEntries(listDataData.map(l => [l.listName, l.listId]))
+		listMap = Object.fromEntries(listRawData.map(l => [l.listName, l.listId]))
 
 		const pathParts = window.location.pathname.split('/').filter(Boolean);
 		const slug = pathParts[pathParts.length - 1];
 
 		const listId = listMap[slug] || listMap.demonlist;
 
-		listData = listDataData.find(l => l.listId === listId);
+		listData = listRawData.find(l => l.listId === listId);
 
 		const levelResponse = await fetch(`/api/lists/${listId}/levels`);
 		levelsData = await levelResponse.json();
@@ -63,12 +93,9 @@ async function init() {
 		});
 
 		// Adapt the list
+		document.documentElement.style.setProperty('--active-list-gradient', `linear-gradient(135deg, #${listData.primaryColor}BF, #${listData.secondaryColor}BF)`);
 		document.title = `SeaGDPS ${listData.displayName}`;
 		document.querySelector('h1').innerText = `${listData.displayName}`;
-		document.documentElement.style.setProperty('--active-list-color', getComputedStyle(document.documentElement)
-			.getPropertyValue(`--${listData.listName}-color`)
-			.trim()
-		);
 		document.querySelector('#api-button').href = `/api/lists/${listData.listId}/levels`;
 
 		updateList();
@@ -94,8 +121,9 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	const difficultyImage = clone.querySelector('.difficulty')
 	if (difficulty === null || rating === null) difficultyImage.style.display = 'none'
 	else {
-		difficultyImage.style.display = ''
-		difficultyImage.src = `/images/difficulties/${difficulties[difficulty]}/${ratings[rating]}.png`
+		difficultyImage.style.display = '';
+		difficultyImage.src = `/images/difficulties/${difficulties[difficulty].difficultyName}/${ratings[rating].ratingName}.png`;
+		difficultyImage.title = `${difficulties[difficulty].displayName} / ${ratings[rating].displayName}`;
 	}
 
 	// Copyable ID
@@ -167,7 +195,7 @@ function updateList() {
 
 	let filtered = levelsData.filter(level => {
 		const nameMatch = level.levelName.toLowerCase().startsWith(searchTerm);
-		const isIdSearch = searchTerm !== '' && !Number.isNaN(Number(searchTerm))
+		const isIdSearch = searchTerm !== '' && !Number.isNaN(Number(searchTerm));
 		const idMatch = isIdSearch ? level.levelId.toString() === searchTerm : level.levelId.toString().includes(searchTerm);
 
 		return nameMatch || idMatch;

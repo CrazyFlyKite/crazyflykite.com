@@ -5,14 +5,21 @@ const { getFormattedPlayers } = require('../services/playerService');
 module.exports = (pool) => {
 	router.get('/api/lists', (req, res) => {
 		pool.query(`
-			SELECT list_id AS listId, list_name AS listName, display_name AS displayName
+			SELECT
+				list_id AS listId,
+				list_name AS listName,
+				display_name AS displayName,
+				primary_color AS primaryColor,
+				secondary_color AS secondaryColor,
+				button_row AS buttonRow,
+				button_column AS buttonColumn
 			FROM lists
 			ORDER BY list_id
 		`, (err, rows) => {
-			if (err) return res.status(500).json({ error: err.message })
-			res.json(rows)
-		})
-	})
+			if (err) return res.status(500).json({ error: err.message });
+			res.json(rows);
+		});
+	});
 
 	router.get('/api/lists/:listId/levels', async (req, res) => {
 		try {

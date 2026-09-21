@@ -2,7 +2,7 @@
 h1 {
 	display: inline-flex;
 	gap: 25px;
-	background: var(--rules-color);
+	background: var(--rules-gadient);
 }
 
 .header-top {
@@ -55,45 +55,29 @@ main a, main button {
 	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-#demonlist {
-	background: var(--demonlist-color);
-}
-
-#pemonlist {
-	background: var(--pemonlist-color);
-}
-
-#challengelist {
-	background: var(--challengelist-color);
-}
-
-#shittylist {
-	background: var(--shittylist-color);
-}
-
 #rules {
-	background: var(--rules-color);
+	background: var(--rules-gadient);
 }
 
 #requirements {
-	background: var(--requirements-color);
+	background: var(--requirements-gradient);
 }
 
 #stats-viewer {
-	background: var(--stats-viewer-color);
+	background: var(--stats-viewer-gradient);
 }
 
 #youtube {
-	background: var(--youtube-color);
+	background: var(--youtube-gradient);
 }
 
 #discord {
-	background: var(--discord-color);
+	background: var(--discord-gradient);
 }
 
 #mitker-says-things {
 	width: 500px;
-	background: var(--mitker-says-things-color);
+	background: var(--mitker-says-things-gradient);
 }
 
 /* Mobile */
