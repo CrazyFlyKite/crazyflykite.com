@@ -45,7 +45,7 @@ async function getCreatedLevelsForPlayers(pool, playerIds, listId) {
 		JOIN levels l ON c.level_id = l.level_id
 		LEFT JOIN creators c_pub ON l.level_id = c_pub.level_id AND c_pub.is_publisher = 1
 		LEFT JOIN players p_pub ON c_pub.player_id = p_pub.player_id
-		WHERE c.player_id IN (?) AND l.list_id = ?
+		WHERE c.player_id IN (?) AND c.is_creator IS TRUE AND l.list_id = ?
 		ORDER BY l.placement
 	`, [playerIds, listId]);
 

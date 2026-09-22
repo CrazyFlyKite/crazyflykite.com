@@ -18,7 +18,7 @@ async function getFormattedLevels(pool, listId) {
 			levelId: l.level_id,
 			placement: l.placement,
 			levelName: l.level_name,
-			creators: levelCreators.map(redactPlayer),
+			creators: levelCreators.filter(c => c.is_creator).map(redactPlayer),
 			publisher: redactPlayer(levelCreators.find(c => c.is_publisher)),
 			verifier: redactPlayer(levelRecords.find(r => r.is_verifier)),
 			victors: levelRecords.filter(r => !r.is_verifier).map(redactPlayer),

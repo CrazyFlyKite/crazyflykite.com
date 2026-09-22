@@ -14,7 +14,7 @@ async function getCreatorsForLevels(pool, levelIds) {
 	if (levelIds.length === 0) return [];
 
 	const [rows] = await pool.promise().query(`
-		SELECT c.level_id, p.player_id, p.player_name, p.is_banned, c.is_publisher
+		SELECT c.level_id, p.player_id, p.player_name, p.is_banned, c.is_creator, c.is_publisher
 		FROM creators c
 		JOIN players p ON c.player_id = p.player_id
 		WHERE c.level_id IN (?)

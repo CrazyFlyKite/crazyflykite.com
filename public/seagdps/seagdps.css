@@ -1,4 +1,5 @@
 :root {
+	--active-list-gradient: unset;
 	--rules-gadient: linear-gradient(135deg, rgba(47, 47, 47, 0.75), rgba(117, 117, 117, 0.75));
 	--requirements-gradient: linear-gradient(135deg, rgba(91, 22, 152, 0.75), rgba(116, 0, 255, 0.75));
 	--stats-viewer-gradient: linear-gradient(135deg, rgb(24, 34, 204, 0.75), rgb(61, 74, 191, 0.75));

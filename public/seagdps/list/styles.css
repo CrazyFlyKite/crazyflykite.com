@@ -190,6 +190,7 @@ hr {
 }
 
 .title {
+	margin-bottom: 10px;
 	white-space: pre-wrap;
 	overflow-wrap: break-word;
 	word-wrap: break-word;

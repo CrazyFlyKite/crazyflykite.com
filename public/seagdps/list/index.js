@@ -111,7 +111,7 @@ function createLevel(placement, id, name, publisher, creators, verifier, difficu
 	clone.querySelector('.title').innerHTML = `#${placement + 1} - <strong>${name}</strong> by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${publisher.playerId}" class="player-link">${publisher.isBanned ? '-' : publisher.playerName}</a></strong>`;
 	clone.querySelector('.id').innerHTML = `ID: <strong>${id}</strong>`;
 	clone.querySelector('.is2p').style.display = is2p ? '' : 'none';
-	if (creators.length > 1) clone.querySelector('.creators').innerHTML = `Created by ${creators.map(c => `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${c.playerId}" class="player-link"><strong>${c.isBanned ? '-' : c.playerName}</strong></a>`).join(', ')}`;
+	if (creators.length > 1 || !publisher.isCreator) clone.querySelector('.creators').innerHTML = `Created by ${creators.map(c => `<a href="/seagdps/statsviewer/?list=${listData.listName}&player=${c.playerId}" class="player-link"><strong>${c.isBanned ? '-' : c.playerName}</strong></a>`).join(', ')}`;
 	clone.querySelector('.verifier').innerHTML = `Verified by <strong><a href="/seagdps/statsviewer/?list=${listData.listName}&player=${verifier.playerId}" class="player-link">${verifier.isBanned ? '-' : verifier.playerName}</a></strong>` + ((verifier.timeSpent ? ` (<strong>${verifier.timeSpent}</strong>)` : '') + (verifier.isMobile ? ' 📱' : ''));
 	if (points === 0) clone.querySelector('.points').innerHTML = `List %: <strong>${listPercentage}%</strong>`;
 	if (listPercentage !== null) clone.querySelector('.points').innerHTML = `Points: <strong>${points} p.</strong> (<strong>100%</strong>) / <strong>${listPercentagePoints} p.</strong> (<strong>${listPercentage}%</strong>)`;

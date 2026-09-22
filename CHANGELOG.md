@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.2 | 22.09.2026
+
+- Separated creators from publishers
+
 ## 3.2.1 | 21.09.2026
 
 - Moved list UI parameters to the database

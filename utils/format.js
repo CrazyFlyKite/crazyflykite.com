@@ -6,6 +6,7 @@ function redactPlayer(row) {
 		playerId: row.player_id,
 		playerName: banned ? null : row.player_name,
 		isBanned: banned,
+		...(row.is_creator !== undefined && { isCreator: row.is_creator === 1 }),
 		...(row.percentage !== undefined && { percentage: banned ? null : row.percentage }),
 		...(row.time_spent !== undefined && { timeSpent: banned ? null : row.time_spent }),
 		...(row.is_mobile !== undefined && { isMobile: row.is_mobile === 1 })
